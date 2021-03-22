@@ -1,0 +1,22 @@
+{
+  "name": "vue4",
+  "version": "0.0.1",
+  "description": "🐶",
+  "main": "index.js",
+  "scripts": {
+    "dev": "http-server . -o ./index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imtaotao/vue4.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "bugs": {
+    "url": "https://github.com/imtaotao/vue4/issues"
+  },
+  "homepage": "https://github.com/imtaotao/vue4#readme"
+}

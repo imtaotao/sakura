@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+  <script type="module">
+    import { parse } from './src/index.js'
+
+    const data = parse(`
+      <div v-name="demo">
+        <style scoped>
+          .title {
+            color: red
+          }
+        </style>
+        
+        <div
+          class="title"
+          @click="click"
+        >
+          {{ title }}
+        </div>
+
+        <script>
+          ctx.state.title = 'tao'
+          ctx.event.click = () => {
+            ctx.state.title = 'taotao'
+          }
+        <\/script>
+      </div>
+    `)
+    console.log(data);
+  </script>
+</body>
+</html>
