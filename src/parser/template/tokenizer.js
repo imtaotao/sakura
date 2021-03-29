@@ -1,10 +1,9 @@
-const newlineReg = /[\n\t\r]/
 const childlessTags = ['style', 'script', 'template']
 
-export function tokenizer(input, pos = true) {
+export function tokenizer(input, pos) {
   let buf = ''
   let line = pos ? 1 : null
-  let column = pos ? 1 : null
+  let column = line
   
   const ts = []
   const ctx = {
@@ -34,7 +33,7 @@ export function tokenizer(input, pos = true) {
     if (str === ' ') { column++; return }
     for (let i = 0, l = str.length; i < l; i++) {
       const char = str.charAt(i)
-      if (newlineReg.test(char)) {
+      if (char === '\n' || char === '\t' || char === '\r') {
         line++
         column = 0
       } else {
@@ -66,7 +65,7 @@ export function tokenizer(input, pos = true) {
   // 直接增量添加
   const add = (char) => {
     if (ctx.inQuote) {
-      if (char === '.' || char === '"') return false
+      if (char === "'" || char === '"') return false
       buf += char
       return true
     } else if (ctx.inText) {
@@ -145,9 +144,17 @@ export function tokenizer(input, pos = true) {
         push()
       }
     } else if (char === "'") {
-      if (ctx.inQuote && !ctx.dbQuote) {
+      if (ctx.inQuote) {
+        if (ctx.dbQuote) {
+          buf += char
+        } else {
+          push()
+          ctx.inQuote = false
+        }
+      } else {
+        ctx.inQuote = true
+        ctx.dbQuote = false
         push()
-        ctx.inQuote = false
       }
     } else if (char === ' ') {
       push()
