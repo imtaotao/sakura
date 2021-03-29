@@ -1,25 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
+  <style>
+    body {
+      content: "<div></div>"
+    }
+  </style >
   <input />
+  <!--<aa>-->
   <script type="module">
     import { parse } from './src/index.js'
-
+    
     const data = parse(`
+      <input/>
       <div v-name="demo">
         <style scoped>
           .title {
-            color: red
+            color: red; content: '<div>11</div>'
           }
         </style>
-        
         <div
           class="title"
           @click="click"
         >
           {{ title }}
         </div>
-
+        <!-- <aa> -->
         <script>
           ctx.state.title = 'tao'
           ctx.event.click = () => {
@@ -29,6 +35,13 @@
       </div>
     `)
     console.log(data);
+
+    // fetch('./larger.html').then(res => res.text()).then(code => {
+    //   console.time('a')
+    //   const ts = parse(code)
+    //   console.timeEnd('a')
+    //   console.log(ts)
+    // })
   </script>
 </body>
 </html>
