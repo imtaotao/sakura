@@ -11,37 +11,37 @@
   <script type="module">
     import { parse } from './src/index.js'
     
-    const data = parse(`
-      <input/>
-      <div v-name="demo" id='"d'>
-        <style scoped>
-          .title {
-            color: red; content: '<div>11</div>'
-          }
-        </style>
-        <div
-          class="title"
-          @click="click"
-        >
-          {{ title }}
-        </div>
-        <!-- <aa> -->
-        <script>
-          ctx.state.title = 'tao'
-          ctx.event.click = () => {
-            ctx.state.title = 'taotao'
-          }
-        <\/script>
-      </div>
-    `)
-    console.log(data);
+    // const data = parse(`
+    //   <input/>
+    //   <div v-name="demo" id='"d'>
+    //     <style scoped>
+    //       .title {
+    //         color: red; content: '<div>11</div>'
+    //       }
+    //     </style>
+    //     <div
+    //       class="title"
+    //       @click="click"
+    //     >
+    //       {{ title }}a 31 {{fd}}
+    //     </div>
+    //     <!-- <aa> -->
+    //     <script>
+    //       ctx.state.title = 'tao'
+    //       ctx.event.click = () => {
+    //         ctx.state.title = 'taotao'
+    //       }
+    //     <\/script>
+    //   </div>
+    // `)
+    // console.log(data);
 
-    // fetch('./larger.html').then(res => res.text()).then(code => {
-    //   console.time('a')
-    //   const ts = parse(code)
-    //   console.timeEnd('a')
-    //   console.log(ts)
-    // })
+    fetch('./larger.html').then(res => res.text()).then(code => {
+      console.time('a')
+      const ts = parse(code)
+      console.timeEnd('a')
+      console.log(ts)
+    })
   </script>
 </body>
 </html>

@@ -22,6 +22,7 @@ export function tokenizer(input, pos) {
     this.line = line
     this.column = column
     this.expr = ctx.inExpr
+    this.text = ctx.inText
     this.closeTag = ctx.closeTag
     this.singleTag = ctx.singleTag
   }
@@ -47,6 +48,7 @@ export function tokenizer(input, pos) {
     ts.length--
     if (pos) {
       const t = last()
+      if (!t.line) return
       line = t.line
       column = t.column
     }
@@ -58,7 +60,7 @@ export function tokenizer(input, pos) {
       if (lessTag(buf)) ctx.lessTag = buf
     }
     updatePosition(buf)
-    ts[ts.length] = new token(buf)
+    ts[ts.length] = new token()
     buf = ''
   }
 
@@ -69,7 +71,7 @@ export function tokenizer(input, pos) {
       buf += char
       return true
     } else if (ctx.inText) {
-      if (char === '<') return false
+      if (char === '<' || char === '{') return false
       buf += char
       return true
     }
@@ -98,23 +100,24 @@ export function tokenizer(input, pos) {
       if (nextChar === '>') {
         push()
         buf += char
-        ctx.inText = true
         ctx.closeTag = true
         ctx.singleTag = true
         buf += nextChar
         i++
+        push()
+        ctx.inText = true
       } else {
         buf += char
+        push()
       }
-      push()
       ctx.closeTag = false
       ctx.singleTag = false
     } else if (char === '>') {
       push()
       ctx.fs = false
-      ctx.inText = true
       buf += char
       push()
+      ctx.inText = true
       // 需要过滤的节点不可能是单标签
       if (ctx.lessTag) {
         const endOfIdx = input.indexOf('</' + ctx.lessTag, i)
@@ -163,6 +166,21 @@ export function tokenizer(input, pos) {
       } else {
         buf += char
         push()
+      }
+    } else if (char === '{') {
+      const nextChar = input[i + 1]
+      if (nextChar === '{') {
+        push()
+        ctx.inExpr = true
+        const endOfExpr = input.indexOf('}}', i)
+        if (endOfExpr > -1) {
+          buf = input.slice(i + 2, endOfExpr)
+          push()
+          i = endOfExpr + 1
+          ctx.inExpr = false
+        }
+      } else {
+        buf += char
       }
     } else {
       buf += char
