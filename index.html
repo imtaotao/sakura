@@ -36,12 +36,12 @@
     `)
     console.log(data);
 
-    // fetch('./larger.html').then(res => res.text()).then(code => {
-    //   console.time('a')
-    //   const ts = parse(code)
-    //   console.timeEnd('a')
-    //   console.log(ts)
-    // })
+    fetch('./larger.html').then(res => res.text()).then(code => {
+      console.time('a')
+      const ts = parse(code)
+      console.timeEnd('a')
+      console.log(ts)
+    })
   </script>
 </body>
 </html>

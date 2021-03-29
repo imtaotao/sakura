@@ -29,7 +29,7 @@ export function parse(input, pos = true) {
   const ts = tokenizer(input, pos)
   for (let i = 0, l = ts.length; i < l; i++) {
     const t = ts[i]
-    console.log(t);
+    // console.log(t);
     if (t.expr) {
       node.children.push(new Expression(t.buf))
     } else if (t.text) {
