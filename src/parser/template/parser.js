@@ -63,7 +63,7 @@ function Directive(key, buf, pos) {
       this.typeBuf = null
     }
   }
-  // position 只是表达式的位置，方便在 js 执行使用 sourcemap
+  // position 只是表达式的位置，方便在 js 中执行时使用 sourcemap
   if (pos) this.pos = pos
 }
 

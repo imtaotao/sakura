@@ -1,1 +1,1 @@
-export * from './parser/template/parse.js'
+export * from './parser/template/parser.js'
