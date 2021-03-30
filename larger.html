@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" href=/dfssff.html />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ECMAScript5.1 中文版</title>
   <style>
     html {
@@ -883,7 +883,7 @@
             </ol>
           </li>
           <li><a href="#226" class="chapter">continue 语句</a></li>
-          <li><a href="#227" class="chapter">break 语句</a></li>
+          <li><a href="#227" class="chapter">br/eak 语句</a></li>
           <li><a href="#228" class="chapter">return 语句</a></li>
           <li><a href="#229" class="chapter">with 语句</a>
             <ol>
@@ -1672,7 +1672,7 @@
   </aside>
 
   <h1 class="intro"><a id="0">介绍</a></h1>
-  <p id="block0">这一Ecma标准建立在一些原本的技术上，最为著名的是JavaScript(网景)和JScript (微软)。语言由网景的Brendan Eich发明而第一次出现在这个公司的Navigator
+  <p id="block0">这一Ecma标准建立在一些原本的技术上，最为著名的是JavaScript(网景)和JScript (微软)。语言由网景的br/endan Eich发明而第一次出现在这个公司的Navigator
     2.0浏览器上。它出现在所有Netscape后来的浏览器以及微软从Internet Explorer 3.0之后的所有浏览器上。</p>
   <p id="block1">这一标准的编制自1996年十一月开始。这一Ecma标准的第一个版本被1997年六月的Ecma General Assembly采纳。</p>
   <p id="block2">上述Ecma标准被以快速跟进流程提交至ISO/IEC JTC 1，并作为于1998年四月作为ISO/IEC 16262通过。1998年六月Ecma General
@@ -2526,7 +2526,7 @@ BooleanLiteral</code>
     下列 token 是 ECMAScript 的关键词，不能用作 ECMAScript 程序的 Identifiers。</p>
   <p id="block230">
     语法</p><code class="block" id="block231"> Keyword :: one of
-break do instanceof typeof
+br/eak do instanceof typeof
 case else new var
 catch finally return void
 continue for switch while
@@ -2876,7 +2876,7 @@ RegularExpressionFlags IdentifierPart</code>
   <h2 class="chapter"><a id="68">自动分号插入</a></h2>
   <p id="block309">
     必须用分号终止某些 ECMAScript 语句 ( 空语句 , 变量声明语句 , 表达式语句 , do-while 语句 , continue
-    语句 , break 语句 , return 语句 ,throw 语句 )。这些分号总是明确的显示在源文本里。然而，为了方便起见，某些情况下这些分号可以在源文本里省略。描述这种情况会说：这种情况下给源代码的
+    语句 , br/eak 语句 , return 语句 ,throw 语句 )。这些分号总是明确的显示在源文本里。然而，为了方便起见，某些情况下这些分号可以在源文本里省略。描述这种情况会说：这种情况下给源代码的
     token 流自动插入分号。</p>
   <h3 class="chapter"><a id="69">自动分号插入规则</a></h3>
   <p id="block310">
@@ -2904,8 +2904,8 @@ LeftHandSideExpression [no LineTerminator here] ++
 LeftHandSideExpression [no LineTerminator here] --</code>
     <code class="block">ContinueStatement :
 continue [no LineTerminator here] Identifier;</code>
-    <code class="block">BreakStatement :
-break [no LineTerminator here] Identifier;</code>
+    <code class="block">br/eakStatement :
+br/eak [no LineTerminator here] Identifier;</code>
     <code class="block">ReturnStatement :
 return [no LineTerminator here] Expression;</code>
     <code class="block">ThrowStatement :
@@ -2916,8 +2916,8 @@ throw [no LineTerminator here] Expression;</code>
       当遇到的 ++ 或 --token 将要被解析器当作一个后缀运算符，并且至少有一个 LineTerminator 出现 ++ 或 --token 和它之前的 token
       之间，那么在 ++ 或 --token 前面自动插入一个分号。</p>
     <p>
-      当遇到 continue, break, return, throw token，并且在下一个 token
-      前面遇到 LineTerminator，那么在 continue, break, return, throw
+      当遇到 continue, br/eak, return, throw token，并且在下一个 token
+      前面遇到 LineTerminator，那么在 continue, br/eak, return, throw
       token 后面自动插入一个分号。</p>
     <p>
       这对 ECMAScript 程序员的实际影响是：</p>
@@ -2926,7 +2926,7 @@ throw [no LineTerminator here] Expression;</code>
     <p>
       return 或 throw 语句的表达式开始位置应该和 return 或 throw token 同一行。</p>
     <p>
-      break 或 continue 语句的标示符应该和 break 或 continue token 同一行。</p>
+      br/eak 或 continue 语句的标示符应该和 br/eak 或 continue token 同一行。</p>
   </div>
   <h3 class="chapter"><a id="70">自动分号插入的例子</a></h3>
   <p id="block314">
@@ -3371,10 +3371,10 @@ throw [no LineTerminator here] Expression;</code>
           <td>一个定义了函数对象执行的环境的词法环境。在标准内置 ECMAScript 对象中只有 Function 对象实现 [[Scope]]。</td>
         </tr>
         <tr>
-          <td>[[FormalParameters]]</td>
+          <td>[[Formalparam/eters]]</td>
           <td>List of Strings</td>
-          <td>一个包含 Function 的 FormalParameterList 的标识符字符串的可能是空的列表。在标准内置 ECMAScript 对象中只有 Function 对象实现
-            [[FormalParameterList]]。</td>
+          <td>一个包含 Function 的 Formalparam/eterList 的标识符字符串的可能是空的列表。在标准内置 ECMAScript 对象中只有 Function 对象实现
+            [[Formalparam/eterList]]。</td>
         </tr>
         <tr>
           <td>[[Code]]</td>
@@ -3405,9 +3405,9 @@ throw [no LineTerminator here] Expression;</code>
           <td>测试正则匹配并返回一个 MatchResult 值（见 15.10.2.1）。在标准内置 ECMAScript 对象中只有 RegExp 对象实现 [[Match]]。</td>
         </tr>
         <tr>
-          <td>[[ParameterMap]]</td>
+          <td>[[param/eterMap]]</td>
           <td></td>
-          <td>提供参数对象的属性和函数关联的形式参数之间的映射。只有参数对象才有 [[ParameterMap]] 内部属性。</td>
+          <td>提供参数对象的属性和函数关联的形式参数之间的映射。只有参数对象才有 [[param/eterMap]] 内部属性。</td>
         </tr>
       </tbody>
     </table>
@@ -3535,11 +3535,11 @@ throw [no LineTerminator here] Expression;</code>
     列表类型用于说明 new 表达式，函数调用，其他需要值的简单列表的算法 -- 里的参数列表的计算。列表类型的值是简单排序的一些值的序列。此序列可以是任意长度。</p>
   <h2 class="chapter"><a id="84">完结规范类型</a></h2>
   <p id="block406">
-    完结类型用于说明执行将控制转移到外部的声明 (break, continue, return, throw) 的行为。完结类型的值是由三部分组成，形如（type，value，target），其中
-    type 是 normal, break, continue, return, throw 之一，value 是任何 ECMASCript 语言值或 empty，target
+    完结类型用于说明执行将控制转移到外部的声明 (br/eak, continue, return, throw) 的行为。完结类型的值是由三部分组成，形如（type，value，target），其中
+    type 是 normal, br/eak, continue, return, throw 之一，value 是任何 ECMASCript 语言值或 empty，target
     是任何 ECMAScript 标识符或 empty。</p>
   <p id="block407">
-    术语“突然完结（abrupt completion）”是指任何非正常完成的完成类型。</p>
+    术语“突然完结（abr/upt completion）”是指任何非正常完成的完成类型。</p>
   <h2 class="chapter"><a id="85">属性描述符及属性标识符规范类型</a></h2>
   <p id="block408">
     属性描述符类型是用来解释命名属性的具体的操作的特性集。属性描述符类型的值是记录项，由命名字段组成，每个字段的名称是一个特性名并且它的值是一个相应的特性值，这些特性指定在
@@ -4188,7 +4188,7 @@ HexIntegerLiteral HexDigit</code><code class="block" id="block475"> HexDigit :::
     一旦字符串数值常量的数学值被精确地确定，接下来就会被舍入为数值类型的一个值。如果数学值是 0，那么舍入值为 +0，除非字符串数值常量中第一个非空白字符是 ‘-’
     — 在这种情况下，舍入值为 -0。否则，舍入值必须是数学值的 数字值 ，除非该常量包括一个「串无符号十进制常量」，且此常量多于 20 位 重要数字 — 在这种情况下，此数字的值是下面两种之一：一是将其
     20 位之后的每个重要数字用 0 替换，产生此字符串解析出的数学值的数字值；二是将其 20 位之后的每个有效数字用 0 替换，并在第 20 位重要数字加一，产生此字符串解析出的数学值的数字值
-    <img border="0" alt="" src="./ECMAScript5.1中文版_files/Question.png" width="22" height="22">。判断一个数字是否为 重要数字
+    <img border="0" alt="" src="./ECMAScript5.1中文版_files/Question.png" width="22" height="22"/>。判断一个数字是否为 重要数字
     ，首先它不能是「指数部分」的一部分，且</p>
   <ul id="block481">
     <li>它不是 0；或 </li>
@@ -4281,7 +4281,7 @@ HexIntegerLiteral HexDigit</code><code class="block" id="block475"> HexDigit :::
         </tr>
         <tr>
           <td>Boolean</td>
-          <td>如果参数是 true，那么结果为 "true"。<br>如果参数是 false，那么结果为 "false"。</td>
+          <td>如果参数是 true，那么结果为 "true"。<br/>如果参数是 false，那么结果为 "false"。</td>
         </tr>
         <tr>
           <td>Number</td>
@@ -4601,7 +4601,7 @@ HexIntegerLiteral HexDigit</code><code class="block" id="block475"> HexDigit :::
     <var>
       y</var>
     为 ECMAScript 语言中的值，需要产出 true 或 false<img border="0" alt="" src="./ECMAScript5.1中文版_files/Note.png" width="16"
-      height="16">。比较过程如下：</p>
+      height="16"/>。比较过程如下：</p>
   <ol id="block507">
     <li>如果 <code>Type(<var>x</var>)</code> 与 <code>Type(<var>y</var>)</code> 的结果不一致，返回
       false，否则 </li>
@@ -4718,7 +4718,7 @@ HexIntegerLiteral HexDigit</code><code class="block" id="block475"> HexDigit :::
         </tr>
         <tr>
           <td>CreateMutableBinding(N, D)</td>
-          <td><br>在环境记录项中创建一个新的可变绑定。其中字符串 N 指定绑定名称。如果可选参数 D 的值为true，则该绑定在后续操作中可以被删除。</td>
+          <td><br/>在环境记录项中创建一个新的可变绑定。其中字符串 N 指定绑定名称。如果可选参数 D 的值为true，则该绑定在后续操作中可以被删除。</td>
         </tr>
         <tr>
           <td>SetMutableBinding(N,V, S)</td>
@@ -5107,7 +5107,7 @@ HexIntegerLiteral HexDigit</code><code class="block" id="block475"> HexDigit :::
     <li>如果代码为 函数代码 ，则：
       <ol>
         <li>令 func 为通过 [[Call]] 内部属性初始化 code 的执行的函数对象。令 names 为 func
-          的 [[FormalParameters]] 内部属性。 </li>
+          的 [[Formalparam/eters]] 内部属性。 </li>
         <li>令 argCount 为 args 中元素的数量。 </li>
         <li>令 n 为数字类型，其值为 0。 </li>
         <li>按列表顺序遍历 names，对于每一个字符串 argName：
@@ -5241,7 +5241,7 @@ HexIntegerLiteral HexDigit</code><code class="block" id="block475"> HexDigit :::
     </li>
     <li>如果 mappedNames 不为空，则
       <ol>
-        <li>将 obj 对象的内部属性 [[ParameterMap]] 设置为 map</li>
+        <li>将 obj 对象的内部属性 [[param/eterMap]] 设置为 map</li>
         <li>将 obj 对象的内部方法 [[Get]], [[GetOwnProperty]], [[DefineOwnProperty]], [[Delete]]
           按下面给出的定义进行设置。</li>
       </ol>
@@ -5276,19 +5276,19 @@ HexIntegerLiteral HexDigit</code><code class="block" id="block475"> HexDigit :::
     抽象操作 MakeArgSetter 以字符串 name 和环境记录 env 作为参数被调用时，会创建一个函数对象，当执行完后，会给在
     env 中绑定的 name 设置一个值。执行步骤如下：</p>
   <ol id="block592">
-    <li>令 param 为 name 和字符串 "_arg" 的连接字符串 </li>
+    <li>令 param/ 为 name 和字符串 "_arg" 的连接字符串 </li>
     <li>令 body 为字符串 "<name>=
-        <param>;"；将 <name> 替换为 name 的值，将
-          <param> 替换为 param 的值 </name>
+        <param/>;"；将 <name> 替换为 name 的值，将
+          <param/> 替换为 param/ 的值 </name>
       </name>
     </li>
-    <li>返回一个按照 13.2 章节中描述的方式创建的函数对象，以一个只包含字符串 param 的 list 列表作为它的形参，以 body
+    <li>返回一个按照 13.2 章节中描述的方式创建的函数对象，以一个只包含字符串 param/ 的 list 列表作为它的形参，以 body
       作为它的函数体（FunctionBody），以 env 作为它的Scope，并且 Strict 值为 true</li>
   </ol>
   <p id="block593">
     当 arguments 对象的内部方法 [[Get]] 在一个非严格模式下带有形参的函数中，在一个属性名为 P 的条件下被调用时，其执行步骤如下：</p>
   <ol id="block594">
-    <li>令 map 为 arguments 对象的内部属性 [[ParameterMap]] </li>
+    <li>令 map 为 arguments 对象的内部属性 [[param/eterMap]] </li>
     <li>令 isMapped 为 map 对象的内部方法 [[GetOwnPropery]] 传入参数 P 的执行结果
     </li>
     <li>如果 isMapped 值为 undefined，则
@@ -5310,7 +5310,7 @@ HexIntegerLiteral HexDigit</code><code class="block" id="block475"> HexDigit :::
     <li>令 desc 为 arguments 对象的内部方法 [[GetOwnPropery]]（8.12.1）传入参数 P 的执行结果
     </li>
     <li>如果 desc 为 undefined，返回 desc</li>
-    <li>令 map 为 arguments 对象内部属性 [[ParameterMap]] 的值 </li>
+    <li>令 map 为 arguments 对象内部属性 [[param/eterMap]] 的值 </li>
     <li>令 isMapped 为 map 对象的内部方法 [[GetOwnPropery]] 传入参数 P 的执行结果 </li>
     <li>如果 isMapped 的值不是 undefined，则
       <ol>
@@ -5323,7 +5323,7 @@ HexIntegerLiteral HexDigit</code><code class="block" id="block475"> HexDigit :::
     当 arguments 对象的内部方法 [[DefineOwnProperty]] 在一个非严格模式下带有形参的函数中，在一个属性名为 P，属性描述符为 Desc，布尔标志为
     Throw 的条件下被调用时，其执行步骤如下：</p>
   <ol id="block598">
-    <li>令 map 为 arguments 对象的内部属性 [[ParameterMap]] 的值 </li>
+    <li>令 map 为 arguments 对象的内部属性 [[param/eterMap]] 的值 </li>
     <li>令 isMapped 为 map 对象的内部方法 [[GetOwnPropery]] 传入参数 P 的执行结果 </li>
     <li>令 allowed 为 arguments 对象的内部方法 [[DefineOwnPropery]]（8.12.9）传入参数 P，Desc，false
       的执行结果 </li>
@@ -5361,7 +5361,7 @@ HexIntegerLiteral HexDigit</code><code class="block" id="block475"> HexDigit :::
     当 arguments 对象的内部方法 [[Delete]] 在一个非严格模式下带有形参的函数中，在一个属性名为 P，布尔标志为 Throw
     的条件下被调用时，其执行步骤如下：</p>
   <ol id="block600">
-    <li>令 map 为 arguments 对象的内部属性 [[ParameterMap]] 的值 </li>
+    <li>令 map 为 arguments 对象的内部属性 [[param/eterMap]] 的值 </li>
     <li>令 isMapped 为 map 对象的内部方法 [[GetOwnPropery]] 传入参数 P 的执行结果
     </li>
     <li>令 result 为 arguments 对象的内部方法 [[Delete]]（8.12.7）传入参数 P 和 Throw
@@ -5379,7 +5379,7 @@ HexIntegerLiteral HexDigit</code><code class="block" id="block475"> HexDigit :::
       对象的属性值就是传入该函数的实际参数的简单拷贝，它们与形参之间的值不存在动态的联动关系。</p>
   </div>
   <div class="note" id="block602">
-    <p>ParameterMap 对象和它的属性值被作为说明 arguments 对象对应绑定参数的装置。ParameterMap 对象和它的属性值对象不能直接被
+    <p>param/eterMap 对象和它的属性值被作为说明 arguments 对象对应绑定参数的装置。param/eterMap 对象和它的属性值对象不能直接被
       ECMAScript 代码访问。作为 ECMAScript 的实现，不需要实际创建或使用这些对象去实现指定的语义。</p>
   </div>
   <div class="note" id="block603">
@@ -5501,10 +5501,10 @@ PropertyAssignment
 PropertyNameAndValueList , PropertyAssignment</code><code class="block" id="block635">PropertyAssignment :
 PropertyName : AssignmentExpression
 get PropertyName() { FunctionBody }
-set PropertyName( PropertySetParameterList ) { FunctionBody }</code><code class="block" id="block636">PropertyName :
+set PropertyName( PropertySetparam/eterList ) { FunctionBody }</code><code class="block" id="block636">PropertyName :
 IdentifierName
 StringLiteral
-NumericLiteral</code><code class="block" id="block637">PropertySetParameterList :
+NumericLiteral</code><code class="block" id="block637">PropertySetparam/eterList :
 Identifier</code>
   <p id="block638">
     语义：</p>
@@ -5578,11 +5578,11 @@ Identifier</code>
     <li>返回 Property Identifier (propName, desc).</li>
   </ol>
   <p id="block652">
-    产生式 PropertyAssignment : set PropertyName ( PropertySetParameterList
+    产生式 PropertyAssignment : set PropertyName ( PropertySetparam/eterList
     ) { FunctionBody } is evaluated as follows:</p>
   <ol id="block653">
     <li>令 propName 为解释执行 PropertyName 的结果 . </li>
-    <li>令 closure 为按照 13.2 规定，以 PropertySetParameterList 作为参数列表和 body 代表的 FunctionBody 创建的一个新的函数对象
+    <li>令 closure 为按照 13.2 规定，以 PropertySetparam/eterList 作为参数列表和 body 代表的 FunctionBody 创建的一个新的函数对象
       . 传入当前执行中的执行环境的 LexicalEnvironment 作为 Scope. 假如 PropertyAssignment 包含在严格模式代码中或者
       FunctionBody 是严格模式代码，传入 true 为严格模式标志。 </li>
     <li>令 desc 为属性描述对象 {[[Set]]: closure, [[Enumerable]]: true, [[Configurable]]: true}
@@ -5590,7 +5590,7 @@ Identifier</code>
     <li>返回属性标识符 (propName, desc).</li>
   </ol>
   <p id="block654">
-    假如 FunctionBody 是严格模式或者被包含在严格模式代码内，PropertyAssignment 中的 PropertySetParameterList，"eval"
+    假如 FunctionBody 是严格模式或者被包含在严格模式代码内，PropertyAssignment 中的 PropertySetparam/eterList，"eval"
     或者 "arguments" 作为标识符将会是一个语法错误。</p>
   <p id="block655">
     产生式 PropertyName : IdentifierName 按照下面的过程执行 :</p>
@@ -5605,8 +5605,8 @@ Identifier</code>
   <p id="block659">
     产生式 PropertyName : NumericLiteral 按照下面的过程执行 :</p>
   <ol id="block660">
-    <li>令 nbr 为求 NumericLiteral 值的结果 </li>
-    <li>返回 ToString(nbr).</li>
+    <li>令 nbr/ 为求 NumericLiteral 值的结果 </li>
+    <li>返回 ToString(nbr/).</li>
   </ol>
   <h3 class="chapter"><a id="160">分组表达式</a></h3>
   <p id="block661">
@@ -6751,7 +6751,7 @@ ExpressionStatement
 IfStatement
 IterationStatement
 ContinueStatement
-BreakStatement
+br/eakStatement
 ReturnStatement
 WithStatement
 LabelledStatement
@@ -6904,7 +6904,7 @@ Identifier InitialiserNoInopt</code><code class="block" id="block898">Initialise
   <h2 class="chapter"><a id="219">表达式语句</a></h2>
   <p id="block923">
     语法：</p><code class="block" id="block924">ExpressionStatement :
-[lookahead ∉ {{, function}]Expression ;</code>
+[lookahead ∉ {, function}]Expression ;</code>
   <div class="note" id="block925">
     <p>一个 ExpressionStatement 不能用一个开大括号开始，因为这可能会使它和 Block 混淆。此外，ExpressionStatement
       不能用 function 关键字开始，因为这可能会使它和FunctionDeclaration 混淆。</p>
@@ -6912,7 +6912,7 @@ Identifier InitialiserNoInopt</code><code class="block" id="block898">Initialise
   <p id="block926">
     语义：</p>
   <p id="block927">
-    产生式 ExpressionStatement : [lookahead ∉ {{',' function}]Expression;
+    产生式 ExpressionStatement : [lookahead ∉ {',' function}]Expression;
 按照下面的过程执行 :</p><ol id="block928">
 <li>令 exprRef 为解释执行 Expression 的结果 . </li>
 <li>返回 (normal, GetValue(exprRef), empty).</li>
@@ -6957,7 +6957,7 @@ for ( var VariableDeclarationNoIn in Expression ) Statement</code><h3 class="cha
 <li>如果 stmt.value 不是 empty，令 V = stmt.value。 </li>
 <li>如果 stmt.type 不是 continue || stmt.target 不在当前标签组，则
 <ol>
-<li>如果 stmt.type 是 break 并且 stmt.target 在当前标签组内，返回 (normal, V, empty)。 </li>
+<li>如果 stmt.type 是 br/eak 并且 stmt.target 在当前标签组内，返回 (normal, V, empty)。 </li>
 <li>如果 stmt 是个 非常规完结 ，返回 stmt。</li>
 </ol>
 </li>
@@ -6978,7 +6978,7 @@ for ( var VariableDeclarationNoIn in Expression ) Statement</code><h3 class="cha
 <li>如果 stmt.value 不是 empty，令 V = stmt.value. </li>
 <li>如果 stmt.type 不是 continue || stmt.target 不在当前标签组内，则
 <ol>
-<li>如果 stmt.type 是 break 并且 stmt.target 在当前标签组内，则
+<li>如果 stmt.type 是 br/eak 并且 stmt.target 在当前标签组内，则
 <ol>
 <li>返回 (normal, V, empty).</li>
 </ol>
@@ -7009,7 +7009,7 @@ Statement 按照下面的过程执行 :</p><ol id="block944">
 </li>
 <li>令 stmt 为解释执行 Statement 的结果 . </li>
 <li>如果 stmt.value 不是 empty，令 V = stmt.value </li>
-<li>如果 stmt.type 是 break 并且 stmt.target 在当前标签组内，返回 (normal, V, empty). </li>
+<li>如果 stmt.type 是 br/eak 并且 stmt.target 在当前标签组内，返回 (normal, V, empty). </li>
 <li>如果 stmt.type 不是 continue || stmt.target 不在当前标签组内，则
 <ol>
 <li>如果 stmt 是个非常规完结，返回 stmt.</li>
@@ -7039,7 +7039,7 @@ Statement 按照下面的过程执行 :</p><ol id="block944">
 </li>
 <li>令 stmt 为解释执行 Statement 的结果 . </li>
 <li>如果 stmt.value 不是 empty，令 V = stmt.value. </li>
-<li>如果 stmt.type 是 break 并且 stmt.target 在当前标签组内，返回 (normal, V, empty). </li>
+<li>如果 stmt.type 是 br/eak 并且 stmt.target 在当前标签组内，返回 (normal, V, empty). </li>
 <li>如果 stmt.type 不是 continue || stmt.target 不在当前标签组内，则
 <ol>
 <li>如果 stmt 是个非常规完结，返回 stmt.</li>
@@ -7069,7 +7069,7 @@ in Expression ) Statement 按照下面的过程执行 :</p><ol id="block948">
 <li>调用 PutValue(lhsRef, P). </li>
 <li>令 stmt 为解释执行 Statement 的结果 . </li>
 <li>如果 stmt.value 不是 empty，令 V = stmt.value. </li>
-<li>如果 stmt.type 是 break 并且 stmt.target 在当前标签组内，返回 (normal, V, empty). </li>
+<li>如果 stmt.type 是 br/eak 并且 stmt.target 在当前标签组内，返回 (normal, V, empty). </li>
 <li>如果 stmt.type 不是 continue || stmt.target 不在当前标签组内，则
 <ol>
 <li>如果 stmt 是非常规完结，返回 stmt.</li>
@@ -7094,7 +7094,7 @@ in Expression ) Statement 按照下面的过程执行 :</p><ol id="block950">
 <li>调用 PutValue(varRef, P). </li>
 <li>令 stmt 为解释执行 Statement 的结果 . </li>
 <li>如果 stmt.value 不是 empty，令 V = stmt.value. </li>
-<li>如果 stmt.type 是 break 并且 stmt.target 在当前标签组内，返回 (normal, V, empty). </li>
+<li>如果 stmt.type 是 br/eak 并且 stmt.target 在当前标签组内，返回 (normal, V, empty). </li>
 <li>如果 stmt.type 不是 continue || stmt.target 不在当前标签组内，则
 <ol>
 <li>如果 stmt 是非常规完结，返回 stmt.</li>
@@ -7121,21 +7121,21 @@ continue [ 此处无换行 ] Identifier ;</code><p id="block956">
 </ol><p id="block961">
 一个有可选的 Identifier 的 ContinueStatement 按照下面的过程执行 :</p><ol id="block962">
 <li>返回 (continue, empty, Identifier).</li>
-</ol><h2 class="chapter"><a id="227">break 语句</a></h2><p id="block963">
-语法：</p><code class="block" id="block964">BreakStatement :
-break ;
-break [ 此处无换行 ] Identifier ;</code><p id="block965">
+</ol><h2 class="chapter"><a id="227">br/eak 语句</a></h2><p id="block963">
+语法：</p><code class="block" id="block964">br/eakStatement :
+br/eak ;
+br/eak [ 此处无换行 ] Identifier ;</code><p id="block965">
 语义：</p><p id="block966">
 如果以下任意一个为真，那么程序被认为是语法错误的：</p><ul id="block967">
-<li>程序包含一个不带可选的 Identifier 的 break 语句，没有直接或间接 ( 不跨越函数边界 ) 的嵌套在 IterationStatement
+<li>程序包含一个不带可选的 Identifier 的 br/eak 语句，没有直接或间接 ( 不跨越函数边界 ) 的嵌套在 IterationStatement
 或 SwitchStatement 里。 </li>
-<li>程序包含一个有可选的 Identifier 的 break 语句，这个 Identifier 没有出现在 Statement
+<li>程序包含一个有可选的 Identifier 的 br/eak 语句，这个 Identifier 没有出现在 Statement
 中闭合标签组里 ( 不跨越函数边界 )。</li>
 </ul><p id="block968">
-一个没有 Identifier 的 BreakStatement 按照下面的过程执行 :</p><ol id="block969">
+一个没有 Identifier 的 br/eakStatement 按照下面的过程执行 :</p><ol id="block969">
 <li>返回 (continue, empty, empty).</li>
 </ol><p id="block970">
-一个有可选的 Identifier 的 BreakStatement 按照下面的过程执行 :</p><ol id="block971">
+一个有可选的 Identifier 的 br/eakStatement 按照下面的过程执行 :</p><ol id="block971">
 <li>返回 (continue, empty, Identifier).</li>
 </ol><h2 class="chapter"><a id="228">return 语句</a></h2><p id="block972">
 语法：</p><code class="block" id="block973">ReturnStatement :
@@ -7182,7 +7182,7 @@ default : StatementListopt</code><p id="block992">
 CaseBlock 按照下面的过程执行 :</p><ol id="block994">
 <li>令 exprRef 为解释执行 Expression 的结果 . </li>
 <li>令 R 为以 GetValue(exprRef) 作为参数解释执行 CaseBlock 的结果。 </li>
-<li>如果 R.type 是 break 并且 R.target 在当前标签组内，返回 (normal, R.value, empty). </li>
+<li>如果 R.type 是 br/eak 并且 R.target 在当前标签组内，返回 (normal, R.value, empty). </li>
 <li>返回 R.</li>
 </ol><p id="block995">
 产生式 CaseBlock : { CaseClauses<sub>opt</sub> } 以一个给定输入参数 input,
@@ -7300,13 +7300,13 @@ CaseBlock 按照下面的过程执行 :</p><ol id="block994">
 语法：</p><code class="block" id="block1003">LabelledStatement :
 Identifier : Statement</code><p id="block1004">
 语义：</p><p id="block1005">
-一个 Statement 可以由一个标签作为前缀。标签语句仅与标签化的 break 和 continue 语句一起使用。ECMAScript
+一个 Statement 可以由一个标签作为前缀。标签语句仅与标签化的 br/eak 和 continue 语句一起使用。ECMAScript
 没有 goto 语句。</p><p id="block1006">
 如果一个 ECMAScript 程序包含有相同 Identifier 作为标签的 LabelledStatement 闭合的 LabelledStatement，那么认为它是是语法错误的
 。这不适用于直接或间接嵌套在标签语句里面的 FunctionDeclaration 的 body 里出现标签的情况。</p><p id="block1007">
 产生式 Identifier : Statement 的解释执行方式是，先添加 Identifier 到 Statement 的标签组，再解释执行 Statement。如果
 LabelledStatement 自身有一个非空标签组，这些标签还是会添加到解释执行前的 Statement 的标签组里。如果 Statement 的解释执行结果是
-(break, V, L)，这里的 L 等于 Identifier，则产生式的结果是 (normal, V, empty)。</p><p id="block1008">
+(br/eak, V, L)，这里的 L 等于 Identifier，则产生式的结果是 (normal, V, empty)。</p><p id="block1008">
 在解释执行 LabelledStatement 之前，认为包含的 Statement 拥有一个空标签组，除非它是 IterationStatement 或 SwitchStatement，这种情况下认为它拥有一个包含单个元素
 empty 的标签组。</p><h2 class="chapter"><a id="233">throw 语句</a></h2><p id="block1009">
 语法：</p><code class="block" id="block1010">ThrowStatement :
@@ -7394,33 +7394,33 @@ debugger ;</code><p id="block1034">
 <li>返回 result.</li>
 </ol><h1 class="chapter"><a id="237">函数定义</a></h1><p id="block1038">
 语法</p><code class="block" id="block1039">FunctionDeclaration :
-function Identifier ( FormalParameterListopt ) { FunctionBody }</code><code class="block" id="block1040">FunctionExpression :
-function Identifieropt ( FormalParameterListopt ) { FunctionBody }</code><code class="block" id="block1041">FormalParameterList :
+function Identifier ( Formalparam/eterListopt ) { FunctionBody }</code><code class="block" id="block1040">FunctionExpression :
+function Identifieropt ( Formalparam/eterListopt ) { FunctionBody }</code><code class="block" id="block1041">Formalparam/eterList :
 Identifier
-FormalParameterList , Identifier</code><code class="block" id="block1042">FunctionBody :
+Formalparam/eterList , Identifier</code><code class="block" id="block1042">FunctionBody :
 SourceElementsopt</code><p id="block1043">
 语义</p><p id="block1044">
-产生式 FunctionDeclaration : function Identifier ( FormalParameterList<sub>opt</sub>
+产生式 FunctionDeclaration : function Identifier ( Formalparam/eterList<sub>opt</sub>
 ) { FunctionBody } 依照定义绑定初始化 (10.5) 如下初始化：</p><ol id="block1045">
-<li>依照 13.2，指定 FormalParameterList<sub>opt</sub> 为参数，指定 FunctionBody 为
+<li>依照 13.2，指定 Formalparam/eterList<sub>opt</sub> 为参数，指定 FunctionBody 为
 body，创建一个新函数对象，返回结果。运行中的执行环境的 VariableEnvironment 传递为 Scope。如果 FunctionDeclaration
 包含在 严格模式代码 里或 FunctionBody 是 严格模式代码 ，那么传递 true 为 Strict 标志。</li>
 </ol><p id="block1046">
-产生式 FunctionExpression : function ( FormalParameterList<sub>opt</sub>
+产生式 FunctionExpression : function ( Formalparam/eterList<sub>opt</sub>
 ) { FunctionBody } 的解释执行如下：</p><ol id="block1047">
-<li>依照 13.2，指定 FormalParameterList<sub>opt</sub> 为参数，指定 FunctionBody 为
+<li>依照 13.2，指定 Formalparam/eterList<sub>opt</sub> 为参数，指定 FunctionBody 为
 body，创建一个新函数对象，返回结果。运行中的执行环境的 LexicalEnvironment 传递为 Scope。如果 FunctionExpression
 包含在 严格模式代码 里或 FunctionBody 是 严格模式代码 ，那么传递 true 为 Strict 标志。</li>
 </ol><p id="block1048">
 产生式 FunctionExpression : function Identifier<sub>opt</sub>
-( FormalParameterList<sub>opt</sub> ) { FunctionBody
+( Formalparam/eterList<sub>opt</sub> ) { FunctionBody
 } 的解释执行如下：</p><ol id="block1049">
 <li>令 funcEnv 为以运行中执行环境的 Lexical Environment 为参数调用 NewDeclarativeEnvironment
 的结果。 </li>
 <li>令 envRec 为 funcEnv 的环境记录项。 </li>
 <li>以 Identifier 的字符串值为参数调用 envRec 的具体方法 CreateImmutableBinding(N)。
 </li>
-<li>令 closure 为依照 13.2，指定 FormalParameterList<sub>opt</sub> 为参数，指定 
+<li>令 closure 为依照 13.2，指定 Formalparam/eterList<sub>opt</sub> 为参数，指定 
 FunctionBody 为 body，创建一个新函数对象的结果。传递 funcEnv 为 Scope。如果 FunctionExpression
 包含在严格模式代码 里或 FunctionBody 是 严格模式代码 ，那么传递 true 为 Strict 标志。 </li>
 <li>以 Identifier 的字符串值和 closure 为参数调用 envRec 的具体方法 InitializeImmutableBinding(N,V)。
@@ -7437,13 +7437,13 @@ FunctionDeclaration，FunctionExpression 的 Identifier 不能被范围封闭的
 <li>如果 SourceElements 是当前的，则返回 SourceElements 的解释执行结果。 </li>
 <li>否则返回 (normal, undefined, empty)。</li>
 </ol><h2 class="chapter"><a id="238">严格的模式的限制</a></h2><p id="block1053">
-如果严格模式 FunctionDeclaration 或 FunctionExpression 的 FormalParameterList 里出现多个相同 Identifier
+如果严格模式 FunctionDeclaration 或 FunctionExpression 的 Formalparam/eterList 里出现多个相同 Identifier
 值，那么这是个 SyntaxError。</p><p id="block1054">
-如果严格模式 FunctionDeclaration 或 FunctionExpression 的 FormalParameterList 里出现标识符 "eval"
+如果严格模式 FunctionDeclaration 或 FunctionExpression 的 Formalparam/eterList 里出现标识符 "eval"
 或标识符 "arguments"，那么这是个 SyntaxError。</p><p id="block1055">
 如果严格模式 FunctionDeclaration 或 FunctionExpression 的 Identifier 是标识符 "eval" 或标识符 "arguments"，那么这是个
 SyntaxError。</p><h2 class="chapter"><a id="239">创建函数对象</a></h2><p id="block1056">
-指定 FormalParameterList 为可选参数列表，指定 FunctionBody 为函数体，指定 Scope 为 词法环境 ，Strict 为布尔标记，按照如下步骤构建函数对象：</p><ol id="block1057">
+指定 Formalparam/eterList 为可选参数列表，指定 FunctionBody 为函数体，指定 Scope 为 词法环境 ，Strict 为布尔标记，按照如下步骤构建函数对象：</p><ol id="block1057">
 <li>创建一个新的 ECMAScript 原生对象，令 F 为此对象。 </li>
 <li>依照 8.12 描述设定 F 的除 [[Get]] 以外的所有内部方法。 </li>
 <li>设定 F 的 [[Class]] 内部属性为 "Function"。 </li>
@@ -7453,11 +7453,11 @@ SyntaxError。</p><h2 class="chapter"><a id="239">创建函数对象</a></h2><p 
 <li>依照 13.2.2 描述，设定 F 的 [[Construct]] 内部属性。 </li>
 <li>依照 15.3.5.3 描述，设定 F 的 [[HasInstance]] 内部属性。 </li>
 <li>设定 F 的 [[Scope]] 内部属性为 Scope 的值。 </li>
-<li>令 names 为一个列表容器，其中元素是以从左到右的文本顺序对应 FormalParameterList 的标识符的字符串。 </li>
-<li>设定 F 的 [[FormalParameters]] 内部属性为 names。 </li>
+<li>令 names 为一个列表容器，其中元素是以从左到右的文本顺序对应 Formalparam/eterList 的标识符的字符串。 </li>
+<li>设定 F 的 [[Formalparam/eters]] 内部属性为 names。 </li>
 <li>设定 F 的 [[Code]] 内部属性为 FunctionBody。 </li>
 <li>设定 F 的 [[Extensible]] 内部属性为 true。 </li>
-<li>令 len 为 FormalParameterList 指定的形式参数的个数。如果没有指定参数，则令 len 为 0。 </li>
+<li>令 len 为 Formalparam/eterList 指定的形式参数的个数。如果没有指定参数，则令 len 为 0。 </li>
 <li>以参数 "length"，属性描述符 {[[Value]]: len, [[Writable]]: false, [[Enumerable]]: false,
 [[Configurable]]: false}，false 调用 F 的 [[DefineOwnProperty]] 内部方法。 </li>
 <li>令 proto 为仿佛使用 new Object() 表达式创建新对象的结果，其中 Object 是标准内置构造器名。 </li>
@@ -7478,7 +7478,7 @@ false, [[Configurable]]: false}, false 调用 F 的 [[DefineOwnProperty]] 内部
 </ol><div class="note" id="block1058">
 <p>每个函数都会自动创建一个 prototype 属性，以满足函数会被当作构造器的可能性。</p></div><h3 class="chapter"><a id="240">[[call]]</a></h3><p id="block1059">
 当用一个 this 值，一个参数列表调用函数对象 F 的 [[Call]] 内部方法，采用以下步骤：</p><ol id="block1060">
-<li>用 F 的 [[FormalParameters]] 内部属性值，参数列表 args，10.4.3 描述的 this 值来建立 函数代码 的一个新执行环境，令
+<li>用 F 的 [[Formalparam/eters]] 内部属性值，参数列表 args，10.4.3 描述的 this 值来建立 函数代码 的一个新执行环境，令
 funcCtx 为其结果。 </li>
 <li>令 result 为 FunctionBody（也就是 F 的 [[Code]] 内部属性）解释执行的结果。如果 F 没有 [[Code]] 内部属性或其值是空的
 FunctionBody，则 result 是 (normal, undefined, empty)。 </li>
@@ -7508,7 +7508,7 @@ FunctionBody，则 result 是 (normal, undefined, empty)。 </li>
 <li>设定 F 的 [[Prototype]] 内部属性为 15.3.3.1 指定的标准内置 Function 的 prototype 对象。 </li>
 <li>依照 13.2.1 描述设定 F 的 [[Call]] 内部属性。 </li>
 <li>设定 F 的 [[Scope]] 内部属性为 全局环境 。 </li>
-<li>设定 F 的 [[FormalParameters]] 内部属性为一个空 列表 。 </li>
+<li>设定 F 的 [[Formalparam/eters]] 内部属性为一个空 列表 。 </li>
 <li>设定 F 的 [[Code]] 内部属性为一个 FunctionBody，它无条件抛出一个 TypeError 异常，不做其他事情。 </li>
 <li>以参数 "length", 属性描述符 {[[Value]]: 0, [[Writable]]: false, [[Enumerable]]: false, [[Configurable]]:
 false}, false 调用 F 的 [[DefineOwnProperty]] 内部方法。 </li>
@@ -8154,11 +8154,11 @@ Object 的实例除了拥从 Object 的 prototype 对象继承来的属性之外
 </ol>
 </li>
 <li>令 body 为 ToString(body). </li>
-<li>如果 P 不可解析为一个 FormalParameterListopt，则抛出一个 SyntaxError 异常 . </li>
+<li>如果 P 不可解析为一个 Formalparam/eterListopt，则抛出一个 SyntaxError 异常 . </li>
 <li>如果 body 不可解析为 FunctionBody，则抛出一个 SyntaxError 异常 . </li>
 <li>如果 body 是严格模式代码 ( 见 10.1.1)，则令 strict 为 true, 否则令 strict 为 false. </li>
 <li>如果 strict 是 true, 适用 13.1 指定抛出的任何异常 . </li>
-<li>返回一个新创建的函数对象，它是依照 13.2 指定 -- 专递 P 作为 FormalParameterList，body 作为 FunctionBody，全局环境作为
+<li>返回一个新创建的函数对象，它是依照 13.2 指定 -- 专递 P 作为 Formalparam/eterList，body 作为 FunctionBody，全局环境作为
 Scope 参数，strict 作为严格模式标志 -- 创建的。</li>
 </ol><p id="block1251">
 每个函数都会自动创建一个 prototype 属性，用来支持函数被当做构造器使用的可能性。</p><div class="note" id="block1252">为每个形参指定一个参数是允许的，但没必要。例如以下三个表达式产生相同的结果：
@@ -8251,7 +8251,7 @@ false}, 和 false 作为参数调用 F 的 [[DefineOwnProperty]] 内部方法。
 [[Configurable]]: false}, 和 false 作为参数调用 F 的 [[DefineOwnProperty]] 内部方法。 </li>
 <li>返回 F.</li>
 </ol><p id="block1276">
-bind 方法的 length 属性是 1。</p><div class="note" id="block1277"><p>Function.prototype.bind 创建的函数对象不包含 prototype 属性或 [[Code]], [[FormalParameters]],
+bind 方法的 length 属性是 1。</p><div class="note" id="block1277"><p>Function.prototype.bind 创建的函数对象不包含 prototype 属性或 [[Code]], [[Formalparam/eters]],
 [[Scope]] 内部属性。</p></div><h5 class="chapter"><a id="325">[[Call]]</a></h5><p id="block1278">
 当调用一个用 bind 函数创建的函数对象 F 的 [[Call]] 内部方法，传入一个 this 值和一个参数列表 ExtraArgs，采用如下步骤：</p><ol id="block1279">
 <li>令 boundArgs 为 F 的 [[BoundArgs]] 内部属性值。 </li>
@@ -8274,7 +8274,7 @@ bind 方法的 length 属性是 1。</p><div class="note" id="block1277"><p>Func
 </ol><h3 class="chapter"><a id="328">Function 的实例的属性</a></h3><p id="block1284">
 除了必要的内部属性之外，每个函数实例还有一个 [[Call]] 内部属性并且在大多数情况下使用不同版本的 [[Get]] 内部属性。函数实例根据怎样创建的（见
 8.6.2 ,13.2, 15, 15.3.4.5）可能还有一个 [[HasInstance]] 内部属性 , 一个 [[Scope]] 内部属性 , 一个 [[Construct]]
-内部属性 , 一个 [[FormalParameters]] 内部属性 , 一个 [[Code]] 内部属性 , 一个 [[TargetFunction]] 内部属性
+内部属性 , 一个 [[Formalparam/eters]] 内部属性 , 一个 [[Code]] 内部属性 , 一个 [[TargetFunction]] 内部属性
 , 一个 [[BoundThis]] 内部属性 , 一个 [[BoundArgs]] 内部属性。</p><p id="block1285">
 [[Class]] 内部属性的值是 "Function"。</p><p id="block1286">
 对应于严格模式函数 (13.2) 的函数实例和用 Function.prototype.bind 方法 (15.3.4.5) 创建的函数实例有名为“caller”和
@@ -9963,12 +9963,12 @@ Math 对象没有 [[Call]] 内部属性；Math 对象不能作为函数被调用
 <p>
 这里没有精确规定函数 acos, asin, atan, atan2, cos, exp, log, pow, sin, sqrt 的行为，除了需要特别说明对边界情况某些参数值的结果之外。对其他参数值，这些函数旨在计算计算常见数学函数的结果，但选择的近似算法中的某些范围是被允许的。The
 general intent is that an implementer should be able to use the same mathematical
-library for ECMAScript on a given hardware platform that is available to C programmers
+libr/ary for ECMAScript on a given hardware platform that is available to C programmers
 on that platform.</p></div><p id="block1691">
 Although the choice of algorithms is left to the implementation, it is recommended
 (but not specified by this standard) that implementations use the approximation
 algorithms for IEEE 754 arithmetic contained in fdlibm, the freely distributable
-mathematical library from Sun Microsystems (http://www.netlib.org/fdlibm).</p><h4 class="chapter"><a id="444">abs (x)</a></h4><p id="block1692">
+mathematical libr/ary from Sun Microsystems (http://www.netlib.org/fdlibm).</p><h4 class="chapter"><a id="444">abs (x)</a></h4><p id="block1692">
 返回 x 的绝对值。</p><ul id="block1693">
 <li>若 x 是 NaN, 返回结果是 NaN. </li>
 <li>若 x 是 −0, 返回结果是 +0. </li>
@@ -10232,40 +10232,40 @@ TimeClip 抽象操作用它的参数算出一个毫秒数，参数必须是 ECMA
 ECMAScript 定义了一个基于简化的 ISO 8601 扩展格式的日期时间的字符串互换格式，格式为：YYYY-MM-DDTHH:mm:ss.sssZ</p><p id="block1794">
 其中个字段为：</p><p id="block1795">
 YYYY
-<br>
+<br/>
 是公历中年的十进制数字。</p><p id="block1796">
 -
-<br>
+<br/>
 在字符串中直接以“-” ( 破折号 ) 出现两次。</p><p id="block1797">
 MM
-<br>
+<br/>
 是一年中的月份，从 01 ( 一月 ) 到 12 ( 十二月 )。</p><p id="block1798">
 DD
-<br>
+<br/>
 是月份中的日期，从 01 到 30。</p><p id="block1799">
 T
-<br>
+<br/>
 在字符串中直接以“T”出现，用来表明时间元素的开始。</p><p id="block1800">
 HH
-<br>
+<br/>
 是用两个十进制数字表示的，自午夜 0 点以来的小时数。</p><p id="block1801">
 :
-<br>
+<br/>
 在字符串中直接以“:” ( 冒号 ) 出现两次。</p><p id="block1802">
 mm
-<br>
+<br/>
 是用两个十进制数字表示的，自小时开始以来的分钟数。</p><p id="block1803">
 ss
-<br>
+<br/>
 是用两个十进制数字表示的，自分开始以来的秒数。</p><p id="block1804">
 .
-<br>
+<br/>
 在字符串中直接以“.” ( 点 ) 出现。</p><p id="block1805">
 sss
-<br>
+<br/>
 是用三个十进制数字表示的，自秒开始以来的毫秒数。</p><p id="block1806">
 Z
-<br>
+<br/>
 是时区偏移量，由（“Z” ( 指 UTC) 或“+” 或 “-”）和后面跟着的时间表达式 hh:mm 组成。</p><p id="block1807">
 这个格式包括只表示日期的形式：</p><code class="date block" id="block1808">YYYY YYYY-MM YYYY-MM-DD</code><p id="block1809">
 这个格式还包括“日期时间”形式，它由上面的只表示日期的形式之一和紧跟在后面的“T”和以下时间形式之一和可选的时区偏移量组成：</p><code class="date block" id="block1810">THH:mm THH:mm:ss THH:mm:ss.sss</code><p id="block1811">
@@ -11662,9 +11662,9 @@ Boolean, Number 或者是 null。可选的replacer参数要么是个可以修改
 <li>否则若C为退格，formfeed换行回车挥着tab
 <ol>
 <li>令product为product与反斜杠字符的连接 </li>
-<li>令abbrev为如下表所示C对应的字符: backspace "b" formfeed "f" newline "n" carriage return "r"
+<li>令abbr/ev为如下表所示C对应的字符: backspace "b" formfeed "f" newline "n" carriage return "r"
 tab "t" </li>
-<li>令product为product与abbrev的连接</li>
+<li>令product为product与abbr/ev的连接</li>
 </ol>
 </li>
 <li>否则若C为代码值小于space的控制字符
@@ -11827,7 +11827,7 @@ eval 被调用时报告 eval 错误代码，但是在 eval 代码内之优先评
 <li>试图在严格代码模式下定义一个有多个相同名称属性设置数据的 对象字面量</li>
 <li>with 语句在严格代码模式下出现 </li>
 <li>在严格模式下的函数定义或函数表达的参数列表内不止一次出现标识符值的情况 </li>
-<li>使用 return, break 和 continue 不当 </li>
+<li>使用 return, br/eak 和 continue 不当 </li>
 <li>试图在早期已经确定为非引用的任意值上调用 PutValue（例如，执行赋值语句 3 = 4）</li>
 </ol><p id="block2239">
 一个实现不应过早处理其他种类的错误，即使编译器可以证实某一构造会在任何情况下产生执行错误。</p><p id="block2240">
@@ -11956,7 +11956,7 @@ NullLiteral
 BooleanLiteral
 </code><code class="grammar block" id="block2267">
 Keyword :: 以下之一 
-break do instanceof typeof case else new var catch finally return 
+br/eak do instanceof typeof case else new var catch finally return 
 void continue for switch while debugger function this with default
 if throw delete in try 
 </code><code class="grammar block" id="block2268">
@@ -12205,14 +12205,14 @@ PropertyNameAndValueList , PropertyAssignment
 PropertyAssignment :
 PropertyName : AssignmentExpression
 get PropertyName() { FunctionBody }
-set PropertyName( PropertySetParameterList ) { FunctionBody }
+set PropertyName( PropertySetparam/eterList ) { FunctionBody }
 </code><code class="grammar block" id="block2330">
 PropertyName :
 IdentifierName
 StringLiteral
 NumericLiteral
 </code><code class="grammar block" id="block2331">
-PropertySetParameterList :
+PropertySetparam/eterList :
 Identifier
 </code><code class="grammar block" id="block2332">
 MemberExpression :
@@ -12384,7 +12384,7 @@ ExpressionStatement
 IfStatement
 IterationStatement
 ContinueStatement
-BreakStatement
+br/eakStatement
 ReturnStatement
 WithStatement
 LabelledStatement
@@ -12427,7 +12427,7 @@ EmptyStatement :
 ;
 </code><code class="grammar block" id="block2374">
 ExpressionStatement :
-[lookahead ∉ {{, function}]Expression ;
+[lookahead ∉ {, function}]Expression ;
 </code><code class="grammar block" id="block2375">
 IfStatement :
 if ( Expression ) Statement else Statement
@@ -12444,8 +12444,8 @@ for ( var VariableDeclarationNoIn in Expression ) Statement
 ContinueStatement :
 continue [ 此处无换行 ]Identifieropt ;
 </code><code class="grammar block" id="block2378">
-BreakStatement :
-break [ 此处无换行 ]Identifieropt ;
+br/eakStatement :
+br/eak [ 此处无换行 ]Identifieropt ;
 </code><code class="grammar block" id="block2379">
 ReturnStatement :
 return [ 此处无换行 ]Expressionopt ;
@@ -12491,14 +12491,14 @@ DebuggerStatement :
 debugger ;
 </code><h2 class="annex"><a id="621">函数和程序</a></h2><code class="grammar block" id="block2392">
 FunctionDeclaration :
-function Identifier ( FormalParameterListopt ) { FunctionBody }
+function Identifier ( Formalparam/eterListopt ) { FunctionBody }
 </code><code class="grammar block" id="block2393">
 FunctionExpression :
-function Identifieropt ( FormalParameterListopt ) { FunctionBody }
+function Identifieropt ( Formalparam/eterListopt ) { FunctionBody }
 </code><code class="grammar block" id="block2394">
-FormalParameterList :
+Formalparam/eterList :
 Identifier
-FormalParameterList , Identifier
+Formalparam/eterList , Identifier
 </code><code class="grammar block" id="block2395">
 FunctionBody :
 SourceElementsopt
@@ -12914,7 +12914,7 @@ FourToSeven :: 以下之一
 <li>在严格模式下，如果代码包含了一个含有一个以上任意数据属性的定义，那么这就是一个语法错误。</li>
 
 <li>在严格模式下，如果 eval 或者 argument 出现在属性参数列表中，那么这就是一个语法错误</li>
-</ul><h1 class="annex"><a id="639">第 5 版中可能会对第 3 版产生兼容性影响的更正及澄清</a></h1><p id="block2486">全体：在第 3 版规范中像“就像用表达式 new Array() 一样”这样的短语的意思受到了误解。第 5 版规范中，对标准内置对象、属性的所有内部引用和内部调用相关文本描述，都做了澄清：应使用实际的内置对象，而不是对应命名属性的当前动态值。</p><p id="block2487">11.8.2，11.8.3，11.8.5：ECMAScript 总体上是以从左到右的顺序解释执行，但是第 3 版规范中 &gt; 和 &lt;= 运算符的描述语言导致了局部从右到左的顺序。本规范已经更正了这些运算符，现在完全是从左到右的顺序解释执行。然而，这个对顺序的修改，如果在解释执行过程期间产生副作用，就有可能被观察到。</p><p id="block2488">11.1.4：第 5 版澄清了 Array Initialiser 结束位置的尾端逗号不计入数组长度。这不是对第 3 版语义的修改，但有些实现在之前可能对此有误解。</p><p id="block2489">11.2.3：第 5 版调换了算法步骤 2 和 3 的顺序。第 1 版一直到第 3 版规定的顺序是错误的，原来的顺序在解释执行 Arguments 时有副作用，可能影响到 MemberExpression 的解释执行结果。</p><p id="block2490">12.14：在第 3 版中，对于传给 try 语句的 catch 子句的异常参数的名称解析，用与 new Object() 一样的方式创建一个对象来作为解析这个名称的作用域。如果实际的异常对象是个函数并且在catch 子句中调用了它，那么作用域对象将会作为 this 值传给这个调用。在函数体里可以给它的 this 值定义新属性，并且这些属性名将在函数返回之后在 catch 子句的作用域内变成可见的标识符绑定。在第 5 版中，如果把异常参数作为函数来调用，传入的 this 值是 undefined 。</p><p id="block2491">13：在第 3 版中，有 Identifier 的 FunctionExpression 产生式的算法，用与 new Object() 一样的方式创建一个对象并加入到作用域链中，用来提供函数名查找的作用域。标识符解析规则（第 3 版里的 10.1.4 ）会作用在这样的对象上，如果需要，还会用对象的原型链来尝试解析标识符。这种方式使得 Object.prototype 的所有属性以标识符的形式在这个作用域里可见。实践中，大多数第 3 版的实现都没有实行这个语义。地 5 版更改了这里的语义，用一个声明式环境记录项来绑定了函数名。</p><p id="block2492">14：在第 3 版中，产生式 SourceElements : SourceElements SourceElement 的算法不像相同形式的 Block，对 statement 的结果值做正确的传递。这可导致 eval 函数解释执行一个 Program 文本时产生错误的结果。实践中，大多数第 3 版的实现都做了正确的传递，而不关心第 5 版规定了什么。</p><p id="block2493">15.10.6：RegExp.prototype 现在是一个 RegExp 对象，而不是 Object 的一个实例。用 Object.prototype.toString 可看到它的 [[Class]] 内部属性值现在是 "RegExp"，不是 "Object"。</p><h1 class="annex"><a id="640">第 5 版内容的增加与变化，介绍第 3 版不兼容问题</a></h1><p id="block2494">7.1：Unicode 格式控制字符在受到处理之前不再从 ECMAScript 源文本中剥离。在第五版中，如果这样一个字符在字符串字面量或者正则表达式字面量中出现，这个字符会被合并到字面量中，而在第三版里，这个字符不会被合并。</p><p id="block2495">7.2：Unicode 字符 &lt;BOM&gt; 现在是作为空格使用，如果它出现在本该是一个标识符的位置的中间，则会产生一个语法错误，而在第三版里不会。</p><p id="block2496">7.3：换行符以前是作为转义字符处理，而现在允许换行符被包含在字符串字面量标记中。这在第三版中会产生一个语法错误。</p><p id="block2497">7.8.5：现在的正则表达式字面量在字面量解析执行的时候都会返回一个唯一的对象。这个改变可以被任意测试字面量值的对象 ID 或者一些敏感的副作用的程序检测到。</p><p id="block2498">7.8.5：第五版要求提前抛出任意可能的正则表达式结构错误，这些结构错误会在将正则表达式字面量转换成正则表达式对象的时候产生。在第五版之前的实现允许延迟抛出 [TypeError]，直到真正执行到这个对象。</p><p id="block2499">7.8.5：在第五版中，未转义的 "/" 字符可以作为 CharacterClass 存在于正则表达式字面量中。在第三版里，这样的字符是作为字面量的最后一个字符存在。</p><p id="block2500">10.4.2：在第五版中，间接调用 eval 函数会将全局对象作为 <a href="http://es5.github.com/#eval-code">执行代码 </a>的变量环境和 <a href="http://es5.github.com/#x10.2">词法环境 </a>。在第三版中，[eval] 函数的间接调用者的变量和 <a href="http://es5.github.com/#x10.2">词法环境 </a>是作为 <a href="http://es5.github.com/#eval-code">执行代码 </a>的环境使用。</p><p id="block2501">15.4.4：在第五版中，所有 <a href="http://es5.github.com/#x15.4.3.1">Array.prototype</a> 下的方法都是通用的。在第三版中，toString 和 toLocaleString 方法不是通用的，如果被非 Array 实例调用时会抛出一个 TypeError 的异常。</p><p id="block2502">10.6：在第五版中，argument 对象与实际的参数符合，它的数组索引属性是可枚举的。在第三版中，这些属性是不可枚举的。</p><p id="block2503">10.6：在第五版中，一个 arguments 对象的 <a href="http://www.w3.org/html/ig/zh/wiki/index.php?title=Class&amp;action=edit&amp;redlink=1">Class</a> 内置属性值是“Arguments”。在第三版中，它是“Object”。当对 argument 对象调用toString 的时候</p><p id="block2504">12.6.4：当 in 表达式执行一个 null 或者 undefined 时 ,for-in 语句不再抛出 TypeError。取而代之的是将其作为不包含可枚举属性的对象执行。</p><p id="block2505">15：在第五版中，下面的新属性都是在第三种中已存在的内建对象中定义，Object.getPrototypeOf, Object.getOwnPropertyDescriptor, Object.getOwnPropertyNames, Object.create, Object.defineProperty, Object.defineProperties, Object.seal, Object.freeze, Object.preventExtensions, Object.isSealed, Object.isFrozen, Object.isExtensible, Object.keys, Function.prototype.bind, Array.prototype.indexOf, Array.prototype.lastIndexOf, Array.prototype.every, Array.prototype.some, Array.prototype.forEach, Array.prototype.map, Array.prototype.filter, Array.prototype.reduce, Array.prototype.reduceRight, String.prototype.trim, Date.now, Date.prototype.toISOString, Date.prototype.toJSON。</p><p id="block2506">15：实现现在要求忽略内建方法中的额外参数，除非明确指定。在第三版中，并没有规定额外参数的处理方式，实现中明确允许抛出一个 TypeErrorBold text 错误。</p><p id="block2507">15.1.1：全局对象的值属性 NaN，Infinity 和 Undefined 改为只读属性。</p><p id="block2508">15.1.2.1：实现不再允许约束非直接调用 eval 的方式。另外间接调用 eval 会使用全局对象作为变量环境，而不是使用调用者的变量环境作为变量环境。</p><p id="block2509">15.1.2.2：parseInt 的规范不再允许实现将 0 开头的字符串作为 8 进制值。</p><p id="block2510">15.3.4.3：在第三版中，如果传入 <a href="http://es5.github.com/#x15.3.4.3">Function.prototype.apply</a> 的第二个参数不是一个数组对象或者一个 arguments 对象，就会抛出一个TypeError。在第五版中，参数也可以是任意类型的含有 length 属性的类数组对象。</p><p id="block2511">15.3.4.3，15.3.4.4：在第三版中，在 <a href="http://es5.github.com/#x15.3.4.3">Function.prototype.apply</a> 或者 <a href="http://es5.github.com/#x15.3.4.4">Function.prototype.call</a> 中传入 undefined 或者 null 作为第一个参数会导致 <a href="http://es5.github.com/#x15.1">全局对象 </a>被作为一个个参数传入，间接导致目标函数的 [this] 会指向全局变量环境。如果第一个参数是一个 <a href="http://es5.github.com/#primitive_value">原始值 </a>，在 <a href="http://es5.github.com/#primitive_value">原始值 </a>上调用 <a href="http://es5.github.com/#x9.9">ToObject</a> 的结果会作为 this 的值。在第五版中，这些转换不会出现，目标函数的 this 会指向真实传入的参数。这个不同点一般情况下对已存在的遵循 ECMAScript 第三版的代码来说不太明显，因为相应转换会在目标函数生效之前执行。然而，基于不同的实现，如果使用 apply 或者 call 调用函数时，这个不同点就会很明显。另外，用这个方法调用一个标准的内建函数，并使用 null 或者 undefined 作为参数时，很可能会导致第五版标准下的实现与第三版标准下的实现不同。特别是第五版中代表性地规定了需要将实际调用的传入的 this值作为对象的内建函数，在传入 null 或者 undefined 作为 this 值时，会抛出一个 TypeError 异常。</p><p id="block2512">15.3.5.2：在第五版中，函数实例的 prototype 属性是不可枚举的。在第三版中，是可以枚举的。</p><p id="block2513">15.5.5.2：在第五版中，一个字符串对象的 <a href="http://www.w3.org/html/ig/zh/wiki/index.php?title=PrimitiveValue&amp;action=edit&amp;redlink=1">primitiveValue</a> 的单个字符可以作为字符串对象的数组索引属性访问。这些属性是不可泄也不可配置的，并会影响任意名字相同的继承属性。在第三版中，这些属性不会存在，ECMAScript 代码可以通过这些名字动态添加和移除可写的属性并访问以这些名字继承的属性。</p><p id="block2514">15.9.4.2：<a href="http://es5.github.com/#x15.9.4.2">Date.parse</a> 方法现在不要求第一个参数首先作为 ISO 格式字符串解析。使用这个格式但是基于特定行为实现（包括未来的一些行为）或许会表现的不太一样。</p><p id="block2515">15.10.2.12：在第五版中，\s 现在可以匹配 &lt;BOM&gt; 了</p><p id="block2516">15.10.4.1：在第三版中，由 RegExp 构造器创建的对象的 source 字符串的精确形式由实现定义。在第五版中，字符串必须符合确定的指定条件，因此会和第三版标准的实现的结果不一样。</p><p id="block2517">15.10.6.4：在第三版中，<a href="http://es5.github.com/#x15.10.6.4">RegExp.prototype.toString</a> 的规则不需要由 RegExp 对象的 source 属性决定。在第五版中，结果必须由 source 属性经由一个指定的规则，因此会和第三版实现的结果不一样。</p><p id="block2518">15.11.2.1，15.11.4.3：在第五版中，如果一个错误对象的 message 属性原始值没有通过 Error 构造器指定，那么这个原始值就是一个空的字符串。在第三版中，这个原始值由实现决定。</p><p id="block2519">15.11.4.4：在第三版中，Error.prototype.toString 的结果是由实现定义的。在第五版中，有完整的规范指定，因此可能会和第三版的实现不同。</p><p id="block2520">15.12： 在第五版中，JSON 是在全局环境中定义的。第三版中，测试这个名词的存在会发现它是 undefined，除非这个程序或者实现定义了这个名词。</p><h1 class="annex"><a id="641">5.1 版中技术上的重大更正和阐明</a></h1><p id="block2521">7.8.4: CV 定义追加了 DoubleStringCharacter :: LineContinuation 与 SingleStringCharacter :: LineContinuation.</p><p id="block2522">10.2.1.1.3：参数 S 是不能被忽略的。它控制着试图设置一个不可改变的绑定时是否抛出异常。</p><p id="block2523">10.2.1.2.2：在算法的第 5 步，真被传递后最后一个参数为 [[DefineOwnProperty]]。</p><p id="block2524">10.5：当重定义全局函数使，原算法步骤 5.E 调整为现在的 5.F，并加入一个新的步骤 5.E 用来还原与第三版的兼容性。</p><p id="block2525">11.5.3：在最后符号项，指定使用 IEEE754 舍入到最接近模式。</p><p id="block2526">12.6.3：在步骤 3.a.ii 的两种算法中修复缺失的 ToBoolean。</p><p id="block2527">12.6.4：在最后两段的额外最后一句中，阐明某些属性枚举的规定。</p><p id="block2528">12.7，12.8，12.9：BNF 的修改为阐明 continue 或 break 语句没有一个 Identifier 或一个 return 语句没有一个 Expression 时，在分号之前可以有一个 LineTerminator 。</p><p id="block2529">12.14：算法 1 的步骤 3 算法 3 的步骤 2.a 中，纠正这样的值域 B 是作为参数传递而不是 B 本身。</p><p id="block2530">15.1.2.2：在算法的步骤 2 中阐明 S 可能是空字符串。</p><p id="block2531">15.1.2.3：在算法的步骤 2 中阐明 trimmedString 可以是空字符串。</p><p id="block2532">15.1.3：添加注释阐明 ECMAScript 中的 URI 语法基于 <a href="http://tools.ietf.org/html/rfc2396">RFC 2396</a> 和较新的 <a href="http://tools.ietf.org/html/rfc3986">RFC 3986</a>。</p><p id="block2533">15.2.3.7：在算法步骤 5 和 6 中更正使用变量 P。</p><p id="block2534">15.2.4.2：第五版处理 undefined 和 null 值导致现有代码失败。规范修改为保持这样的代码的兼容性。在算法中加入新的步骤 1 和 2。</p><p id="block2535">15.3.4.3：步骤 5 和 7 版 5 算法已被删除，因为它们规定要求 argArray 参数与泛数组状对象的其它用法不一致。</p><p id="block2536">15.4.4.12：在步骤 9.A，用 actualStart 替换不正确 relativeStart 引用。</p><p id="block2537">15.4.4.15：阐明 fromIndex 的默认值是数组的长度减去 1。</p><p id="block2538">15.4.4.18：在算法的第 9 步，undefined 是现在指定的返回值。</p><p id="block2539">15.4.4.22：在步骤 9.c.ii 中，第一个参数的 [[Call]] 内部方法已经改变为 undefined，保持与 Array.prototype.reduce 定义的一致性。</p><p id="block2540">15.4.5.1：在算法步骤 3.l.ii 和 3.l.iii 中，变量的名字是相反的，导致一个不正确的相反测试。</p><p id="block2541">15.5.4.9：规范要求每有关规范等效字符串删除，算法从每一个段落都承接 ，因为它在注 2 中被列为建议的。</p><p id="block2542">15.5.4.14：在 split 算法步骤 11.A 和 13.a，SplitMatch 参数的位置顺序已修正为匹配 SplitMatch 的实际参数特征。在步 13.a.iii.7.d，lengthA 取代 A.length。</p><p id="block2543">15.5.5.2：在首段中，删除的单个字符属性访问“array index”语义的含义。改进算法步骤 3 和 5，这样它们不执行“array index”的要求。</p><p id="block2544">15.9.1.15：为缺失字段指定了合法值范围。淘汰“time-only”格式。所有可选字段指定默认值。</p><p id="block2545">15.10.2.2：算法步骤编号为第二步所产生的内部闭包被错误的编号，它们是额外的算法步骤。</p><p id="block2546">15.10.2.6：在步骤 3 中的列表中抽象运算符 IsWordChar 的第一个字符是“a”而不是“A”。</p><p id="block2547">15.10.2.8：在闭包算法返回抽象运算符 CharacterSetMatcher 中 ，为了避免与一个闭包的形参名称冲突，步骤 3 中定义的变量作为参数传递在第 4 步更名为 ch。</p><p id="block2548">15.10.6.2：步骤 9.e 被删除，因为它执行了 I 的额外增量。</p><p id="block2549">15.11.1.1：当 message 参数是 undefined 时，撤销 message 自身属性设置为空字符串的要求。</p><p id="block2550">15.11.1.2：当 message 参数是 undefined 时，撤销 message 自身属性设置为空字符串的要求。</p><p id="block2551">15.11.4.4：步骤 6-10 修改 / 添加正确处理缺少或空的 message 属性值。</p><p id="block2552">15.11.1.2: 移除了当message参数为undefined时将messge自身属性设为空字符串的要求。</p><p id="block2553">15.12.3：在 JA 的内部操作的第一步 10.b.iii，串联的最后一个元素是 “]”。</p><p id="block2554">B.2.1：追加注释，说明编码是基于 <a href="http://tools.ietf.org/html/rfc1738">RFC 1738</a> 而不是新的 <a href="http://tools.ietf.org/html/rfc3986">RFC 3986</a>。</p><p id="block2555">附录 C：增加了 FutureReservedWords 在标准模式下的相应内容到 7.6.12 节。</p><h1 class="Bibliography"><a id="642">参考书目</a></h1><ol id="block2556">
+</ul><h1 class="annex"><a id="639">第 5 版中可能会对第 3 版产生兼容性影响的更正及澄清</a></h1><p id="block2486">全体：在第 3 版规范中像“就像用表达式 new Array() 一样”这样的短语的意思受到了误解。第 5 版规范中，对标准内置对象、属性的所有内部引用和内部调用相关文本描述，都做了澄清：应使用实际的内置对象，而不是对应命名属性的当前动态值。</p><p id="block2487">11.8.2，11.8.3，11.8.5：ECMAScript 总体上是以从左到右的顺序解释执行，但是第 3 版规范中 &gt; 和 &lt;= 运算符的描述语言导致了局部从右到左的顺序。本规范已经更正了这些运算符，现在完全是从左到右的顺序解释执行。然而，这个对顺序的修改，如果在解释执行过程期间产生副作用，就有可能被观察到。</p><p id="block2488">11.1.4：第 5 版澄清了 Array Initialiser 结束位置的尾端逗号不计入数组长度。这不是对第 3 版语义的修改，但有些实现在之前可能对此有误解。</p><p id="block2489">11.2.3：第 5 版调换了算法步骤 2 和 3 的顺序。第 1 版一直到第 3 版规定的顺序是错误的，原来的顺序在解释执行 Arguments 时有副作用，可能影响到 MemberExpression 的解释执行结果。</p><p id="block2490">12.14：在第 3 版中，对于传给 try 语句的 catch 子句的异常参数的名称解析，用与 new Object() 一样的方式创建一个对象来作为解析这个名称的作用域。如果实际的异常对象是个函数并且在catch 子句中调用了它，那么作用域对象将会作为 this 值传给这个调用。在函数体里可以给它的 this 值定义新属性，并且这些属性名将在函数返回之后在 catch 子句的作用域内变成可见的标识符绑定。在第 5 版中，如果把异常参数作为函数来调用，传入的 this 值是 undefined 。</p><p id="block2491">13：在第 3 版中，有 Identifier 的 FunctionExpression 产生式的算法，用与 new Object() 一样的方式创建一个对象并加入到作用域链中，用来提供函数名查找的作用域。标识符解析规则（第 3 版里的 10.1.4 ）会作用在这样的对象上，如果需要，还会用对象的原型链来尝试解析标识符。这种方式使得 Object.prototype 的所有属性以标识符的形式在这个作用域里可见。实践中，大多数第 3 版的实现都没有实行这个语义。地 5 版更改了这里的语义，用一个声明式环境记录项来绑定了函数名。</p><p id="block2492">14：在第 3 版中，产生式 SourceElements : SourceElements SourceElement 的算法不像相同形式的 Block，对 statement 的结果值做正确的传递。这可导致 eval 函数解释执行一个 Program 文本时产生错误的结果。实践中，大多数第 3 版的实现都做了正确的传递，而不关心第 5 版规定了什么。</p><p id="block2493">15.10.6：RegExp.prototype 现在是一个 RegExp 对象，而不是 Object 的一个实例。用 Object.prototype.toString 可看到它的 [[Class]] 内部属性值现在是 "RegExp"，不是 "Object"。</p><h1 class="annex"><a id="640">第 5 版内容的增加与变化，介绍第 3 版不兼容问题</a></h1><p id="block2494">7.1：Unicode 格式控制字符在受到处理之前不再从 ECMAScript 源文本中剥离。在第五版中，如果这样一个字符在字符串字面量或者正则表达式字面量中出现，这个字符会被合并到字面量中，而在第三版里，这个字符不会被合并。</p><p id="block2495">7.2：Unicode 字符 &lt;BOM&gt; 现在是作为空格使用，如果它出现在本该是一个标识符的位置的中间，则会产生一个语法错误，而在第三版里不会。</p><p id="block2496">7.3：换行符以前是作为转义字符处理，而现在允许换行符被包含在字符串字面量标记中。这在第三版中会产生一个语法错误。</p><p id="block2497">7.8.5：现在的正则表达式字面量在字面量解析执行的时候都会返回一个唯一的对象。这个改变可以被任意测试字面量值的对象 ID 或者一些敏感的副作用的程序检测到。</p><p id="block2498">7.8.5：第五版要求提前抛出任意可能的正则表达式结构错误，这些结构错误会在将正则表达式字面量转换成正则表达式对象的时候产生。在第五版之前的实现允许延迟抛出 [TypeError]，直到真正执行到这个对象。</p><p id="block2499">7.8.5：在第五版中，未转义的 "/" 字符可以作为 CharacterClass 存在于正则表达式字面量中。在第三版里，这样的字符是作为字面量的最后一个字符存在。</p><p id="block2500">10.4.2：在第五版中，间接调用 eval 函数会将全局对象作为 <a href="http://es5.github.com/#eval-code">执行代码 </a>的变量环境和 <a href="http://es5.github.com/#x10.2">词法环境 </a>。在第三版中，[eval] 函数的间接调用者的变量和 <a href="http://es5.github.com/#x10.2">词法环境 </a>是作为 <a href="http://es5.github.com/#eval-code">执行代码 </a>的环境使用。</p><p id="block2501">15.4.4：在第五版中，所有 <a href="http://es5.github.com/#x15.4.3.1">Array.prototype</a> 下的方法都是通用的。在第三版中，toString 和 toLocaleString 方法不是通用的，如果被非 Array 实例调用时会抛出一个 TypeError 的异常。</p><p id="block2502">10.6：在第五版中，argument 对象与实际的参数符合，它的数组索引属性是可枚举的。在第三版中，这些属性是不可枚举的。</p><p id="block2503">10.6：在第五版中，一个 arguments 对象的 <a href="http://www.w3.org/html/ig/zh/wiki/index.php?title=Class&amp;action=edit&amp;redlink=1">Class</a> 内置属性值是“Arguments”。在第三版中，它是“Object”。当对 argument 对象调用toString 的时候</p><p id="block2504">12.6.4：当 in 表达式执行一个 null 或者 undefined 时 ,for-in 语句不再抛出 TypeError。取而代之的是将其作为不包含可枚举属性的对象执行。</p><p id="block2505">15：在第五版中，下面的新属性都是在第三种中已存在的内建对象中定义，Object.getPrototypeOf, Object.getOwnPropertyDescriptor, Object.getOwnPropertyNames, Object.create, Object.defineProperty, Object.defineProperties, Object.seal, Object.freeze, Object.preventExtensions, Object.isSealed, Object.isFrozen, Object.isExtensible, Object.keys, Function.prototype.bind, Array.prototype.indexOf, Array.prototype.lastIndexOf, Array.prototype.every, Array.prototype.some, Array.prototype.forEach, Array.prototype.map, Array.prototype.filter, Array.prototype.reduce, Array.prototype.reduceRight, String.prototype.trim, Date.now, Date.prototype.toISOString, Date.prototype.toJSON。</p><p id="block2506">15：实现现在要求忽略内建方法中的额外参数，除非明确指定。在第三版中，并没有规定额外参数的处理方式，实现中明确允许抛出一个 TypeErrorBold text 错误。</p><p id="block2507">15.1.1：全局对象的值属性 NaN，Infinity 和 Undefined 改为只读属性。</p><p id="block2508">15.1.2.1：实现不再允许约束非直接调用 eval 的方式。另外间接调用 eval 会使用全局对象作为变量环境，而不是使用调用者的变量环境作为变量环境。</p><p id="block2509">15.1.2.2：parseInt 的规范不再允许实现将 0 开头的字符串作为 8 进制值。</p><p id="block2510">15.3.4.3：在第三版中，如果传入 <a href="http://es5.github.com/#x15.3.4.3">Function.prototype.apply</a> 的第二个参数不是一个数组对象或者一个 arguments 对象，就会抛出一个TypeError。在第五版中，参数也可以是任意类型的含有 length 属性的类数组对象。</p><p id="block2511">15.3.4.3，15.3.4.4：在第三版中，在 <a href="http://es5.github.com/#x15.3.4.3">Function.prototype.apply</a> 或者 <a href="http://es5.github.com/#x15.3.4.4">Function.prototype.call</a> 中传入 undefined 或者 null 作为第一个参数会导致 <a href="http://es5.github.com/#x15.1">全局对象 </a>被作为一个个参数传入，间接导致目标函数的 [this] 会指向全局变量环境。如果第一个参数是一个 <a href="http://es5.github.com/#primitive_value">原始值 </a>，在 <a href="http://es5.github.com/#primitive_value">原始值 </a>上调用 <a href="http://es5.github.com/#x9.9">ToObject</a> 的结果会作为 this 的值。在第五版中，这些转换不会出现，目标函数的 this 会指向真实传入的参数。这个不同点一般情况下对已存在的遵循 ECMAScript 第三版的代码来说不太明显，因为相应转换会在目标函数生效之前执行。然而，基于不同的实现，如果使用 apply 或者 call 调用函数时，这个不同点就会很明显。另外，用这个方法调用一个标准的内建函数，并使用 null 或者 undefined 作为参数时，很可能会导致第五版标准下的实现与第三版标准下的实现不同。特别是第五版中代表性地规定了需要将实际调用的传入的 this值作为对象的内建函数，在传入 null 或者 undefined 作为 this 值时，会抛出一个 TypeError 异常。</p><p id="block2512">15.3.5.2：在第五版中，函数实例的 prototype 属性是不可枚举的。在第三版中，是可以枚举的。</p><p id="block2513">15.5.5.2：在第五版中，一个字符串对象的 <a href="http://www.w3.org/html/ig/zh/wiki/index.php?title=PrimitiveValue&amp;action=edit&amp;redlink=1">primitiveValue</a> 的单个字符可以作为字符串对象的数组索引属性访问。这些属性是不可泄也不可配置的，并会影响任意名字相同的继承属性。在第三版中，这些属性不会存在，ECMAScript 代码可以通过这些名字动态添加和移除可写的属性并访问以这些名字继承的属性。</p><p id="block2514">15.9.4.2：<a href="http://es5.github.com/#x15.9.4.2">Date.parse</a> 方法现在不要求第一个参数首先作为 ISO 格式字符串解析。使用这个格式但是基于特定行为实现（包括未来的一些行为）或许会表现的不太一样。</p><p id="block2515">15.10.2.12：在第五版中，\s 现在可以匹配 &lt;BOM&gt; 了</p><p id="block2516">15.10.4.1：在第三版中，由 RegExp 构造器创建的对象的 source 字符串的精确形式由实现定义。在第五版中，字符串必须符合确定的指定条件，因此会和第三版标准的实现的结果不一样。</p><p id="block2517">15.10.6.4：在第三版中，<a href="http://es5.github.com/#x15.10.6.4">RegExp.prototype.toString</a> 的规则不需要由 RegExp 对象的 source 属性决定。在第五版中，结果必须由 source 属性经由一个指定的规则，因此会和第三版实现的结果不一样。</p><p id="block2518">15.11.2.1，15.11.4.3：在第五版中，如果一个错误对象的 message 属性原始值没有通过 Error 构造器指定，那么这个原始值就是一个空的字符串。在第三版中，这个原始值由实现决定。</p><p id="block2519">15.11.4.4：在第三版中，Error.prototype.toString 的结果是由实现定义的。在第五版中，有完整的规范指定，因此可能会和第三版的实现不同。</p><p id="block2520">15.12： 在第五版中，JSON 是在全局环境中定义的。第三版中，测试这个名词的存在会发现它是 undefined，除非这个程序或者实现定义了这个名词。</p><h1 class="annex"><a id="641">5.1 版中技术上的重大更正和阐明</a></h1><p id="block2521">7.8.4: CV 定义追加了 DoubleStringCharacter :: LineContinuation 与 SingleStringCharacter :: LineContinuation.</p><p id="block2522">10.2.1.1.3：参数 S 是不能被忽略的。它控制着试图设置一个不可改变的绑定时是否抛出异常。</p><p id="block2523">10.2.1.2.2：在算法的第 5 步，真被传递后最后一个参数为 [[DefineOwnProperty]]。</p><p id="block2524">10.5：当重定义全局函数使，原算法步骤 5.E 调整为现在的 5.F，并加入一个新的步骤 5.E 用来还原与第三版的兼容性。</p><p id="block2525">11.5.3：在最后符号项，指定使用 IEEE754 舍入到最接近模式。</p><p id="block2526">12.6.3：在步骤 3.a.ii 的两种算法中修复缺失的 ToBoolean。</p><p id="block2527">12.6.4：在最后两段的额外最后一句中，阐明某些属性枚举的规定。</p><p id="block2528">12.7，12.8，12.9：BNF 的修改为阐明 continue 或 br/eak 语句没有一个 Identifier 或一个 return 语句没有一个 Expression 时，在分号之前可以有一个 LineTerminator 。</p><p id="block2529">12.14：算法 1 的步骤 3 算法 3 的步骤 2.a 中，纠正这样的值域 B 是作为参数传递而不是 B 本身。</p><p id="block2530">15.1.2.2：在算法的步骤 2 中阐明 S 可能是空字符串。</p><p id="block2531">15.1.2.3：在算法的步骤 2 中阐明 trimmedString 可以是空字符串。</p><p id="block2532">15.1.3：添加注释阐明 ECMAScript 中的 URI 语法基于 <a href="http://tools.ietf.org/html/rfc2396">RFC 2396</a> 和较新的 <a href="http://tools.ietf.org/html/rfc3986">RFC 3986</a>。</p><p id="block2533">15.2.3.7：在算法步骤 5 和 6 中更正使用变量 P。</p><p id="block2534">15.2.4.2：第五版处理 undefined 和 null 值导致现有代码失败。规范修改为保持这样的代码的兼容性。在算法中加入新的步骤 1 和 2。</p><p id="block2535">15.3.4.3：步骤 5 和 7 版 5 算法已被删除，因为它们规定要求 argArray 参数与泛数组状对象的其它用法不一致。</p><p id="block2536">15.4.4.12：在步骤 9.A，用 actualStart 替换不正确 relativeStart 引用。</p><p id="block2537">15.4.4.15：阐明 fromIndex 的默认值是数组的长度减去 1。</p><p id="block2538">15.4.4.18：在算法的第 9 步，undefined 是现在指定的返回值。</p><p id="block2539">15.4.4.22：在步骤 9.c.ii 中，第一个参数的 [[Call]] 内部方法已经改变为 undefined，保持与 Array.prototype.reduce 定义的一致性。</p><p id="block2540">15.4.5.1：在算法步骤 3.l.ii 和 3.l.iii 中，变量的名字是相反的，导致一个不正确的相反测试。</p><p id="block2541">15.5.4.9：规范要求每有关规范等效字符串删除，算法从每一个段落都承接 ，因为它在注 2 中被列为建议的。</p><p id="block2542">15.5.4.14：在 split 算法步骤 11.A 和 13.a，SplitMatch 参数的位置顺序已修正为匹配 SplitMatch 的实际参数特征。在步 13.a.iii.7.d，lengthA 取代 A.length。</p><p id="block2543">15.5.5.2：在首段中，删除的单个字符属性访问“array index”语义的含义。改进算法步骤 3 和 5，这样它们不执行“array index”的要求。</p><p id="block2544">15.9.1.15：为缺失字段指定了合法值范围。淘汰“time-only”格式。所有可选字段指定默认值。</p><p id="block2545">15.10.2.2：算法步骤编号为第二步所产生的内部闭包被错误的编号，它们是额外的算法步骤。</p><p id="block2546">15.10.2.6：在步骤 3 中的列表中抽象运算符 IsWordChar 的第一个字符是“a”而不是“A”。</p><p id="block2547">15.10.2.8：在闭包算法返回抽象运算符 CharacterSetMatcher 中 ，为了避免与一个闭包的形参名称冲突，步骤 3 中定义的变量作为参数传递在第 4 步更名为 ch。</p><p id="block2548">15.10.6.2：步骤 9.e 被删除，因为它执行了 I 的额外增量。</p><p id="block2549">15.11.1.1：当 message 参数是 undefined 时，撤销 message 自身属性设置为空字符串的要求。</p><p id="block2550">15.11.1.2：当 message 参数是 undefined 时，撤销 message 自身属性设置为空字符串的要求。</p><p id="block2551">15.11.4.4：步骤 6-10 修改 / 添加正确处理缺少或空的 message 属性值。</p><p id="block2552">15.11.1.2: 移除了当message参数为undefined时将messge自身属性设为空字符串的要求。</p><p id="block2553">15.12.3：在 JA 的内部操作的第一步 10.b.iii，串联的最后一个元素是 “]”。</p><p id="block2554">B.2.1：追加注释，说明编码是基于 <a href="http://tools.ietf.org/html/rfc1738">RFC 1738</a> 而不是新的 <a href="http://tools.ietf.org/html/rfc3986">RFC 3986</a>。</p><p id="block2555">附录 C：增加了 FutureReservedWords 在标准模式下的相应内容到 7.6.12 节。</p><h1 class="Bibliography"><a id="642">参考书目</a></h1><ol id="block2556">
 <li>ANSI/IEEE Std 754-1985: IEEE Standard for Binary Floating-Point Arithmetic. Institute of Electrical and Electronic Engineers, New York (1985) </li>
 
 <li>The Unicode Consortium. The Unicode Standard, Version 3.0, defined by: The Unicode Standard, Version 3.0 (Boston, MA, Addison-Wesley, 2000. <a href="http://www.w3.org/html/ig/zh/wiki/Special:BookSources/0201616355">ISBN 0-201-61635-5</a>) </li>

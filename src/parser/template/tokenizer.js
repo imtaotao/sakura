@@ -1,4 +1,5 @@
 const childlessTags = ['style', 'script', 'template']
+const isNewline = c => c === '\n' || c === '\t' || c === '\r'
 
 export function tokenizer(input, pos) {
   let buf = ''
@@ -7,12 +8,12 @@ export function tokenizer(input, pos) {
   
   const ts = []
   const ctx = {
-    fs: false, // 过滤空格
     lessTag: null,
     inText: true,
     inExpr: false,
     inQuote: false,
     dbQuote: false,
+    startTag: false,
     closeTag: false,
     singleTag: false,
   }
@@ -23,6 +24,7 @@ export function tokenizer(input, pos) {
     this.column = column
     this.expr = ctx.inExpr
     this.text = ctx.inText
+    this.startTag = ctx.startTag
     this.closeTag = ctx.closeTag
     this.singleTag = ctx.singleTag
   }
@@ -32,9 +34,10 @@ export function tokenizer(input, pos) {
   const updatePosition = (str) => {
     if (!pos) return
     if (str === ' ') { column++; return }
+    if (isNewline(str)) { line++; column = 1; return}
     for (let i = 0, l = str.length; i < l; i++) {
       const char = str.charAt(i)
-      if (char === '\n' || char === '\t' || char === '\r') {
+      if (isNewline(char)) {
         line++
         column = 0
       } else {
@@ -84,12 +87,13 @@ export function tokenizer(input, pos) {
 
     if (char === '<') {
       push()
-      ctx.fs = true
       ctx.inText = false
+      ctx.startTag = true
       buf += char
       const nextChar = input[i + 1]
       if (nextChar === '/') {
         ctx.closeTag = true
+        ctx.startTag = false
         buf += nextChar
         i++
       }
@@ -101,6 +105,7 @@ export function tokenizer(input, pos) {
         push()
         buf += char
         ctx.closeTag = true
+        ctx.startTag = false
         ctx.singleTag = true
         buf += nextChar
         i++
@@ -108,19 +113,16 @@ export function tokenizer(input, pos) {
         ctx.inText = true
       } else {
         buf += char
-        push()
       }
-      ctx.closeTag = false
-      ctx.singleTag = false
     } else if (char === '>') {
       push()
-      ctx.fs = false
+      ctx.startTag = false
       buf += char
       push()
       ctx.inText = true
       // 需要过滤的节点不可能是单标签
       if (ctx.lessTag) {
-        const endOfIdx = input.indexOf('</' + ctx.lessTag, i)
+        const endOfIdx = input.indexOf(`</${ctx.lessTag}`, i)
         if (endOfIdx > -1) {
           buf = input.slice(i + 1, endOfIdx)
           i = endOfIdx - 1
@@ -159,13 +161,11 @@ export function tokenizer(input, pos) {
         ctx.dbQuote = false
         push()
       }
-    } else if (char === ' ') {
+    } else if (char === ' ' || isNewline(char)) {
       push()
-      if (ctx.fs) {
+      // 在引号或者在文本中的空格换行已经增量添加，这里不需要 `buf += cha`
+      if (ctx.startTag) {
         updatePosition(char)
-      } else {
-        buf += char
-        push()
       }
     } else if (char === '{') {
       const nextChar = input[i + 1]

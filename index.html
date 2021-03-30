@@ -12,11 +12,11 @@
     import { parse } from './src/index.js'
     
     const data = parse(`
-      <input/>
-      <div v-name="demo" id='"d'>
+      < input/>
+      <div v-name="demo" id = '" d'>
         <style scoped>
           .title {
-            color: red; content: '<div>11</div>'
+            color: red; content: '<div> 11</div>'
           }
         </style>
         <div
@@ -38,7 +38,7 @@
 
     fetch('./larger.html').then(res => res.text()).then(code => {
       console.time('a')
-      const ts = parse(code)
+      const ts = parse(code, true, false)
       console.timeEnd('a')
       console.log(ts)
     })
