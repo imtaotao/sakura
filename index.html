@@ -13,7 +13,7 @@
     
     console.time('a')
     const data = parse(`
-      <div/>
+      <br>
       <div v-name="demo" id = '" d'>
         <style scoped>
           .title {
@@ -39,12 +39,12 @@
     console.timeEnd('a')
     console.log(data);
 
-    fetch('./larger.html').then(res => res.text()).then(code => {
-      console.time('b')
-      const ts = parse(code, { pos: true })
-      console.timeEnd('b')
-      console.log(ts)
-    })
+    // fetch('./larger.html').then(res => res.text()).then(code => {
+    //   console.time('b')
+    //   const ts = parse(code, { pos: true })
+    //   console.timeEnd('b')
+    //   console.log(ts)
+    // })
   </script>
 </body>
 </html>

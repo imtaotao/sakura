@@ -5,7 +5,15 @@ const voidTags =(
   'command,embed,hr,img,input,meta,' +
   'keygen,link,param,source,track,wbr'
 ).split(',')
+
 const isSingleTag = t => voidTags.indexOf(t) > -1
+const isDirective = k => {
+  const char = k.charAt(0)
+  if (char === '@' || char === ':') return true
+  return char === 'v' // v-
+    ? k.charAt(1) === '-'
+    : false
+}
 
 function Text(buf) {
   this.buf = buf
@@ -26,6 +34,7 @@ function Node(buf, parent) {
   this.type = 'node'
   this.children = []
   this.attributes = []
+  this.directives = []
   this.parent = parent
   this.tagName = buf.toLowerCase()
 }
@@ -76,7 +85,9 @@ export function parse(input, opts = { pos: true }) {
             i += 2
             value = ts[i].buf
           }
-          node.attributes.push({ key, value })
+          isDirective(key)
+            ? node.directives.push({ key, value })
+            : node.attributes.push({ key, value })
         }
       }
     } else if(t.closeTag) {
