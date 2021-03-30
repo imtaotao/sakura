@@ -1,5 +1,9 @@
 import { tokenizer } from './tokenizer.js'
 
+const dMap = {
+  '@': 'on',
+  ':': 'bind',
+}
 const voidTags =(
   '!doctype,area,base,br,col,' +
   'command,embed,hr,img,input,meta,' +
@@ -15,28 +19,50 @@ const isDirective = k => {
     : false
 }
 
-function Text(buf) {
+function Text(buf, pos) {
   this.buf = buf
   this.type = 'text'
+  if (pos) this.pos = pos
 }
 
-function Comment(buf) {
+function Comment(buf, pos) {
   this.buf = buf
   this.type = 'comment'
+  if (pos) this.pos = pos
 }
 
-function Expression(buf) {
+function Expression(buf, pos) {
   this.buf = buf
   this.type = 'expression'
+  if (pos) this.pos = pos
 }
 
-function Node(buf, parent) {
+function Node(buf, parent, pos) {
   this.type = 'node'
   this.children = []
   this.attributes = []
   this.directives = []
   this.parent = parent
   this.tagName = buf.toLowerCase()
+  if (pos) this.pos = pos
+}
+
+function Directive(key, value) {
+  this.value = value
+  const char = key.charAt(0)
+  if (dMap[char]) {
+    this.type = dMap[char]
+    this.subValue = key.slice(1)
+  } else {
+    const delimiterIdx = key.indexOf(':', 2)
+    if (delimiterIdx > -1) {
+      this.type = key.slice(2, delimiterIdx)
+      this.subValue = key.slice(delimiterIdx + 1)
+    } else {
+      this.type = key.slice(2)
+      this.subValue = null
+    }
+  }
 }
 
 // pos: boolean
@@ -45,8 +71,13 @@ export function parse(input, opts = { pos: true }) {
   let node = new Node('', null)
   if (!opts.parent) delete node.parent
   const ts = tokenizer(input, opts.pos)
-  const posMsg = (t) => opts.pos ? `[${t.line},${t.column}]: ` : ''
-  const back = () => {
+  const posMsg = (t) => opts.pos
+    ? `[${t.pos.start.line},${t.pos.start.column}]: `
+    : ''
+  const back = (i) => {
+    if (opts.pos) {
+      node.pos.end = ts[i].pos.end
+    }
     const p = node.parent
     if (!opts.parent) delete node.parent
     node = p
@@ -54,10 +85,12 @@ export function parse(input, opts = { pos: true }) {
 
   for (let i = 0, l = ts.length; i < l; i++) {
     let t = ts[i]
+    let pos = opts.pos ? t.pos : null
+
     if (t.expr) {
-      node.children.push(new Expression(t.buf))
+      node.children.push(new Expression(t.buf, pos))
     } else if (t.text) {
-      node.children.push(new Text(t.buf))
+      node.children.push(new Text(t.buf, pos))
     } else if (t.startTag) {
       if (t.buf === '<') {
         t = ts[i + 1]
@@ -67,7 +100,7 @@ export function parse(input, opts = { pos: true }) {
           i++
           tagName = t.buf
         }
-        const newNode = new Node(tagName, node)
+        const newNode = new Node(tagName, node, pos)
         node.children.push(newNode)
         node = newNode
       } else {
@@ -75,7 +108,8 @@ export function parse(input, opts = { pos: true }) {
         if (t.buf === '<!--') {
           i++
           t = ts[i]
-          node.children.push(new Comment(t.buf))
+          const commentNode = new Comment(t.buf, t.pos)
+          node.children.push(commentNode)
           i++
         } else {
           // attributes
@@ -85,9 +119,11 @@ export function parse(input, opts = { pos: true }) {
             i += 2
             value = ts[i].buf
           }
-          isDirective(key)
-            ? node.directives.push({ key, value })
-            : node.attributes.push({ key, value })
+          if (isDirective(key)) {
+            node.directives.push(new Directive(key, value))
+          } else {
+            node.attributes.push({ key, value })
+          }
         }
       }
     } else if(t.closeTag) {
@@ -102,16 +138,16 @@ export function parse(input, opts = { pos: true }) {
         }
         // <></> 不是单标签，这种情况 i++ 也是可以的
         i++
-        back()
+        back(i)
       } else if (t.buf === '/>') {
+        back(i)
         i++
-        back()
       }
     } else if (t.buf === '>') {
       if (isSingleTag(node.tagName)) {
-        back()
+        back(i)
       }
     }
   }
-  return node
+  return node.children
 }

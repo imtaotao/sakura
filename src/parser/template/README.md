@@ -5,9 +5,11 @@ const ast = parse(`
   <div>
     <>text</>
     <br>
-    <div id='a'>
+    <div id='a'/>
     <!-- comment -->
-    {{ alert(1) }}
+    <li v-for="v in data">
+      {{ alert(1) }}
+    </li>
   </div>
 `)
 ```

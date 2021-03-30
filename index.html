@@ -14,7 +14,7 @@
     console.time('a')
     const data = parse(`
       <br>
-      <div v-name="demo" id = '" d'>
+      <div v-name="demo" v-bind:a="ff">
         <style scoped>
           .title {
             color: red; content: '<div> 11</div>'
@@ -23,6 +23,10 @@
         <div
           class="title"
           @click="click"
+          a=ctx.state.title = 'tao'
+          ctx.event.click = () => {
+            ctx.state.title = 'taotao'
+          }
         >
           {{ title }}a 31 {{fd}}
         </div>
@@ -38,13 +42,14 @@
     `)
     console.timeEnd('a')
     console.log(data);
+    console.log(parse('<div :a:fd=ff/>'))
 
-    // fetch('./larger.html').then(res => res.text()).then(code => {
-    //   console.time('b')
-    //   const ts = parse(code, { pos: true })
-    //   console.timeEnd('b')
-    //   console.log(ts)
-    // })
+    fetch('./larger.html').then(res => res.text()).then(code => {
+      console.time('b')
+      const ts = parse(code, { pos: true })
+      console.timeEnd('b')
+      console.log(ts)
+    })
   </script>
 </body>
 </html>

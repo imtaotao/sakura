@@ -1,6 +1,6 @@
 const childlessTags = 'style,script,template'.split(',')
-const lessTag = (t) => childlessTags.indexOf(t) > -1
 const isNewline = c => c === '\n' || c === '\t' || c === '\r'
+const lessTag = (t) => childlessTags.indexOf(t) > -1
 
 export function tokenizer(input, pos) {
   let buf = ''
@@ -16,23 +16,28 @@ export function tokenizer(input, pos) {
     dbQuote: false,
     startTag: false,
     closeTag: false,
+    startLine: line,
+    startColumn: column,
   }
 
   function token() {
     this.buf = buf
-    this.line = line
-    this.column = column
     this.expr = ctx.inExpr
     this.text = ctx.inText
     this.startTag = ctx.startTag
     this.closeTag = ctx.closeTag
+    this.pos = {
+      end: { line, column },
+      start: {
+        line: ctx.startLine,
+        column: ctx.startColumn,
+      },
+    }
   }
 
   const last = () => ts[ts.length - 1] || {}
   const updatePosition = (str) => {
     if (!pos) return
-    if (str === ' ') { column++; return }
-    if (isNewline(str)) { line++; column = 1; return }
     for (let i = 0, l = str.length; i < l; i++) {
       const char = str.charAt(i)
       if (isNewline(char)) {
@@ -43,15 +48,22 @@ export function tokenizer(input, pos) {
       }
     }
   }
+  
+  const advancePos = (buf) => {
+    if (!pos) return
+    updatePosition(buf)
+    ctx.startLine = line
+    ctx.startColumn = column
+  }
 
   const pop = () => {
     if (ts.length === 0) return
     ts.length--
     if (pos) {
       const t = last()
-      if (!t.line) return
-      line = t.line
-      column = t.column
+      if (t.pos.end.line === null) return
+      line = t.pos.end.line
+      column = t.pos.end.column
     }
   }
 
@@ -62,6 +74,10 @@ export function tokenizer(input, pos) {
     }
     updatePosition(buf)
     ts[ts.length] = new token()
+    if (pos) {
+      ctx.startLine = line
+      ctx.startColumn = column
+    }
     buf = ''
   }
 
@@ -81,6 +97,7 @@ export function tokenizer(input, pos) {
 
   for (let i = 0, l = input.length; i < l; i++) {
     const char = input.charAt(i)
+    const isLine = isNewline(char)
     if (add(char)) continue
 
     if (char === '<') {
@@ -158,23 +175,26 @@ export function tokenizer(input, pos) {
         ctx.dbQuote = false
         push()
       }
-    } else if (char === ' ' || isNewline(char)) {
+    } else if (char === ' ' || isLine) {
       push()
-      // 在引号或者在文本中的空格换行已经增量添加，这里不需要 buf += cha
+      // 在引号或者在文本中的空格换行已经增量添加，这里不需要 buf += char
       if (ctx.startTag) {
-        updatePosition(char)
+        advancePos(char)
       }
     } else if (char === '{') {
       const nextChar = input[i + 1]
       if (nextChar === '{') {
         push()
+        advancePos('{{')
         ctx.inExpr = true
-        const endOfExpr = input.indexOf('}}', i)
+        const endChar = '}}'
+        const endOfExpr = input.indexOf(endChar, i)
         if (endOfExpr > -1) {
           buf = input.slice(i + 2, endOfExpr)
           push()
           i = endOfExpr + 1
           ctx.inExpr = false
+          advancePos(endChar)
         }
       } else {
         buf += char
@@ -199,7 +219,6 @@ export function tokenizer(input, pos) {
       }
     }
   }
-
   push()
   return ts
 }
