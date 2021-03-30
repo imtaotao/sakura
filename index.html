@@ -8,11 +8,47 @@
   </style >
   <input />
   <!--<aa>-->
+  <script>
+    // 检查 position 的位置是否正确
+    function testPosition(code, nodes) {
+      const input = code.split('\n')
+      const test = (node) => {
+        const { pos, buf, type, children, directives } = node
+        children && children.forEach(test)
+        directives && directives.forEach(test)
+        if (!pos) return
+
+        let str = ''
+        const { start, end } = pos
+        if (end.line === start.line) {
+          str = input[start.line].slice(start.column, end.column)
+        } else {
+          for (let i = start.line; i < end.line + 1; i++) {
+            if (i === start.line) {
+              str += (input[i].slice(start.column) + '\n')
+            } else if (i === end.line) {
+              str += input[i].slice(0, end.column)
+            } else {
+              str += (input[i] + '\n')
+            }
+          }
+        }
+
+        const isSuccess = str === buf
+        if (isSuccess) {
+          console.log(isSuccess, type)
+        } else {
+          // 如果是 node，肉眼看是否正确
+          console.log(isSuccess, str)
+        }
+      }
+      nodes.forEach(test)
+    }
+  </script>
   <script type="module">
     import { parse } from './src/index.js'
     
-    console.time('a')
-    const data = parse(`
+    const text = `
       <br>
       <div v-name="demo" v-bind:a="ff">
         <style scoped>
@@ -39,16 +75,18 @@
           }
         <\/script>
       </div>
-    `)
+    `
+    console.time('a')
+    const nodes = parse(text)
     console.timeEnd('a')
-    console.log(data);
-    console.log(parse('<div :a:fd=ff/>'))
+    testPosition(text, nodes)
 
     fetch('./larger.html').then(res => res.text()).then(code => {
       console.time('b')
       const ts = parse(code, { pos: true })
       console.timeEnd('b')
       console.log(ts)
+      // testPosition(code, ts)
     })
   </script>
 </body>

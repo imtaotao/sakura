@@ -47,35 +47,35 @@ function Node(buf, parent, pos) {
   if (pos) this.pos = pos
 }
 
-function Directive(key, value) {
-  this.value = value
+function Directive(key, buf, pos) {
+  this.buf = buf
   const char = key.charAt(0)
   if (dMap[char]) {
     this.type = dMap[char]
-    this.subValue = key.slice(1)
+    this.typeBuf = key.slice(1)
   } else {
     const delimiterIdx = key.indexOf(':', 2)
     if (delimiterIdx > -1) {
       this.type = key.slice(2, delimiterIdx)
-      this.subValue = key.slice(delimiterIdx + 1)
+      this.typeBuf = key.slice(delimiterIdx + 1)
     } else {
       this.type = key.slice(2)
-      this.subValue = null
+      this.typeBuf = null
     }
   }
+  // position 只是表达式的位置，方便在 js 执行使用 sourcemap
+  if (pos) this.pos = pos
 }
 
-// pos: boolean
-// parent: boolean
 export function parse(input, opts = { pos: true }) {
   let node = new Node('', null)
   if (!opts.parent) delete node.parent
   const ts = tokenizer(input, opts.pos)
-  const posMsg = (t) => opts.pos
+  const posMsg = (t) => t.pos
     ? `[${t.pos.start.line},${t.pos.start.column}]: `
     : ''
   const back = (i) => {
-    if (opts.pos) {
+    if (node.pos) {
       node.pos.end = ts[i].pos.end
     }
     const p = node.parent
@@ -85,7 +85,7 @@ export function parse(input, opts = { pos: true }) {
 
   for (let i = 0, l = ts.length; i < l; i++) {
     let t = ts[i]
-    let pos = opts.pos ? t.pos : null
+    const pos = t.pos
 
     if (t.expr) {
       node.children.push(new Expression(t.buf, pos))
@@ -113,16 +113,17 @@ export function parse(input, opts = { pos: true }) {
           i++
         } else {
           // attributes
-          let value = true
+          let buf = true
           const key = t.buf
           if (ts[i + 1].buf === '=') {
             i += 2
-            value = ts[i].buf
+            t = ts[i]
+            buf = t.buf
           }
           if (isDirective(key)) {
-            node.directives.push(new Directive(key, value))
+            node.directives.push(new Directive(key, buf, t.pos))
           } else {
-            node.attributes.push({ key, value })
+            node.attributes.push({ key, buf })
           }
         }
       }

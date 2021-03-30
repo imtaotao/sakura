@@ -4,7 +4,7 @@ const lessTag = (t) => childlessTags.indexOf(t) > -1
 
 export function tokenizer(input, pos) {
   let buf = ''
-  let line = pos ? 1 : null
+  let line = pos ? 0 : null
   let column = line
   
   const ts = []
@@ -26,12 +26,14 @@ export function tokenizer(input, pos) {
     this.text = ctx.inText
     this.startTag = ctx.startTag
     this.closeTag = ctx.closeTag
-    this.pos = {
-      end: { line, column },
-      start: {
-        line: ctx.startLine,
-        column: ctx.startColumn,
-      },
+    if (pos) {
+      this.pos = {
+        end: { line, column },
+        start: {
+          line: ctx.startLine,
+          column: ctx.startColumn,
+        },
+      }
     }
   }
 
@@ -152,6 +154,7 @@ export function tokenizer(input, pos) {
       if (ctx.inQuote) {
         if (ctx.dbQuote) {
           push()
+          advancePos(char)
           ctx.inQuote = false
           ctx.dbQuote = false
         } else {
@@ -161,6 +164,7 @@ export function tokenizer(input, pos) {
         ctx.inQuote = true
         ctx.dbQuote = true
         push()
+        advancePos(char)
       }
     } else if (char === "'") {
       if (ctx.inQuote) {
@@ -168,12 +172,14 @@ export function tokenizer(input, pos) {
           buf += char
         } else {
           push()
+          advancePos(char)
           ctx.inQuote = false
         }
       } else {
         ctx.inQuote = true
         ctx.dbQuote = false
         push()
+        advancePos(char)
       }
     } else if (char === ' ' || isLine) {
       push()
