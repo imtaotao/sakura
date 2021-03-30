@@ -39,7 +39,7 @@ export function parse(input, opts = { pos: true }) {
   const posMsg = (t) => opts.pos ? `[${t.line},${t.column}]: ` : ''
   const back = () => {
     const p = node.parent
-    if (!parent) delete node.parent
+    if (!opts.parent) delete node.parent
     node = p
   }
 
