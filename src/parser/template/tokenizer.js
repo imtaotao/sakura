@@ -1,4 +1,5 @@
-const childlessTags = ['style', 'script', 'template']
+const childlessTags = 'style,script,template'.split(',')
+const lessTag = (t) => childlessTags.indexOf(t) > -1
 const isNewline = c => c === '\n' || c === '\t' || c === '\r'
 
 export function tokenizer(input, pos) {
@@ -15,7 +16,6 @@ export function tokenizer(input, pos) {
     dbQuote: false,
     startTag: false,
     closeTag: false,
-    singleTag: false,
   }
 
   function token() {
@@ -26,15 +26,13 @@ export function tokenizer(input, pos) {
     this.text = ctx.inText
     this.startTag = ctx.startTag
     this.closeTag = ctx.closeTag
-    this.singleTag = ctx.singleTag
   }
 
   const last = () => ts[ts.length - 1] || {}
-  const lessTag = (t) => childlessTags.indexOf(t) > -1
   const updatePosition = (str) => {
     if (!pos) return
     if (str === ' ') { column++; return }
-    if (isNewline(str)) { line++; column = 1; return}
+    if (isNewline(str)) { line++; column = 1; return }
     for (let i = 0, l = str.length; i < l; i++) {
       const char = str.charAt(i)
       if (isNewline(char)) {
@@ -106,7 +104,6 @@ export function tokenizer(input, pos) {
         buf += char
         ctx.closeTag = true
         ctx.startTag = false
-        ctx.singleTag = true
         buf += nextChar
         i++
         push()
@@ -163,7 +160,7 @@ export function tokenizer(input, pos) {
       }
     } else if (char === ' ' || isNewline(char)) {
       push()
-      // 在引号或者在文本中的空格换行已经增量添加，这里不需要 `buf += cha`
+      // 在引号或者在文本中的空格换行已经增量添加，这里不需要 buf += cha
       if (ctx.startTag) {
         updatePosition(char)
       }

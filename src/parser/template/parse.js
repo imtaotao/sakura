@@ -1,5 +1,12 @@
 import { tokenizer } from './tokenizer.js'
 
+const voidTags =(
+  '!doctype,area,base,br,col,' +
+  'command,embed,hr,img,input,meta,' +
+  'keygen,link,param,source,track,wbr'
+).split(',')
+const isSingleTag = t => voidTags.indexOf(t) > -1
+
 function Text(buf) {
   this.buf = buf
   this.type = 'text'
@@ -23,15 +30,16 @@ function Node(buf, parent) {
   this.tagName = buf.toLowerCase()
 }
 
-export function parse(input, pos = true, parent = true) {
+// pos: boolean
+// parent: boolean
+export function parse(input, opts = { pos: true }) {
   let node = new Node('', null)
-  if (!parent) delete node.parent
-
-  const ts = tokenizer(input, pos)
-  const posMsg = (t) => pos ? `[${t.line},${t.column}]: ` : ''
-  const back = n => {
-    const p = n.parent
-    if (!parent) delete n.parent
+  if (!opts.parent) delete node.parent
+  const ts = tokenizer(input, opts.pos)
+  const posMsg = (t) => opts.pos ? `[${t.line},${t.column}]: ` : ''
+  const back = () => {
+    const p = node.parent
+    if (!parent) delete node.parent
     node = p
   }
 
@@ -43,9 +51,14 @@ export function parse(input, pos = true, parent = true) {
       node.children.push(new Text(t.buf))
     } else if (t.startTag) {
       if (t.buf === '<') {
-        i++
-        t = ts[i]
-        const newNode = new Node(t.buf, node)
+        t = ts[i + 1]
+        // <>a</>
+        let tagName = ''
+        if (t.buf !== '>') {
+          i++
+          tagName = t.buf
+        }
+        const newNode = new Node(tagName, node)
         node.children.push(newNode)
         node = newNode
       } else {
@@ -69,17 +82,23 @@ export function parse(input, pos = true, parent = true) {
     } else if(t.closeTag) {
       if (t.buf === '</') {
         i++
-        const endTag = ts[i].buf.toLowerCase()
+        const buf = ts[i].buf
+        const endTag = buf === '>' ? '' : buf.toLowerCase()
         if (endTag !== node.tagName) {
           throw SyntaxError(
             `${posMsg(t)}The closing tag of "${node.tagName}" is wrong "${endTag}"`
           )
         }
+        // <></> 不是单标签，这种情况 i++ 也是可以的
         i++
-        back(node)
+        back()
       } else if (t.buf === '/>') {
         i++
-        back(node)
+        back()
+      }
+    } else if (t.buf === '>') {
+      if (isSingleTag(node.tagName)) {
+        back()
       }
     }
   }

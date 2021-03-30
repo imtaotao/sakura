@@ -11,8 +11,9 @@
   <script type="module">
     import { parse } from './src/index.js'
     
+    console.time('a')
     const data = parse(`
-      < input/>
+      <div/>
       <div v-name="demo" id = '" d'>
         <style scoped>
           .title {
@@ -26,6 +27,7 @@
           {{ title }}a 31 {{fd}}
         </div>
         <!-- <aa> -->
+        <>11</>
         <script>
           ctx.state.title = 'tao'
           ctx.event.click = () => {
@@ -34,12 +36,13 @@
         <\/script>
       </div>
     `)
+    console.timeEnd('a')
     console.log(data);
 
     fetch('./larger.html').then(res => res.text()).then(code => {
-      console.time('a')
-      const ts = parse(code, true, false)
-      console.timeEnd('a')
+      console.time('b')
+      const ts = parse(code, { pos: true })
+      console.timeEnd('b')
       console.log(ts)
     })
   </script>
