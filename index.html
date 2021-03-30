@@ -64,7 +64,7 @@
             ctx.state.title = 'taotao'
           }
         >
-          {{ title }}a 31 {{fd}}
+          {{ title }} a 31 {{fd}}
         </div>
         <!-- <aa> -->
         <>11</>
@@ -79,8 +79,12 @@
     console.time('a')
     const nodes = parse(text)
     console.timeEnd('a')
-    testPosition(text, nodes)
 
+    setTimeout(() => {
+      testPosition(text, nodes)
+    }, 1000)
+
+    // 大文件测试
     fetch('./larger.html').then(res => res.text()).then(code => {
       console.time('b')
       const ts = parse(code, { pos: true })
