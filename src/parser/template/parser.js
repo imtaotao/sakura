@@ -135,7 +135,7 @@ export function parse(input, opts = { pos: true }) {
         const endTag = buf === '>' ? '' : buf.toLowerCase()
         if (endTag !== node.tagName) {
           throw SyntaxError(
-            `${posMsg(t)}The closing tag of "${node.tagName}" is wrong "${endTag}"`
+            `${posMsg(t)}Invalid end tag.`
           )
         }
         // <></> 不是单标签，这种情况 i++ 也是可以的

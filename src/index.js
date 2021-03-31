@@ -1,1 +1,5 @@
-export * from './parser/template/parser.js'
+export { component } from './component.js'
+
+export default {
+  component,
+}
