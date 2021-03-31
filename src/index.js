@@ -1,5 +1,5 @@
-export { component } from './component.js'
+import { render } from './component/define.js'
 
-export default {
-  component,
+export {
+  render,
 }

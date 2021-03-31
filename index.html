@@ -2,11 +2,11 @@
 <html lang="en">
 <body>
 <script type="module">
-  import { component } from './src/index.js'
+  import { render } from './src/index.js'
   
   const text = `
-    <br>
     <div v-name="demo" v-bind:a="ff">
+      <br>
       <style scoped>
         .title {
           color: red; content: '<div> 11</div>'
@@ -15,24 +15,22 @@
       <div
         class="title"
         @click="click"
-        a=ctx.state.title = 'tao'
-        ctx.event.click = () => {
-          ctx.state.title = 'taotao'
-        }
       >
         {{ title }} a 31 {{fd}}
       </div>
       <!-- <aa> -->
       <>11</>
       <script>
+        console.log(ctx)
         ctx.state.title = 'tao'
-        ctx.event.click = () => {
+        ctx.fns.click = () => {
           ctx.state.title = 'taotao'
         }
       <\/script>
     </div>
   `
-  const cm = component('f', text)
+  const doms = render(() => text, document.body)
+  console.log(doms);
 </script>
 </body>
 </html>
