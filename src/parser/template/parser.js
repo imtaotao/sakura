@@ -1,6 +1,6 @@
 import { tokenizer } from './tokenizer.js'
 
-const dMap = {
+const alias = {
   '@': 'on',
   ':': 'bind',
 }
@@ -13,7 +13,7 @@ const voidTags =(
 const isSingleTag = t => voidTags.indexOf(t) > -1
 const isDirective = k => {
   const char = k.charAt(0)
-  if (char === '@' || char === ':') return true
+  if (alias[char]) return true
   return char === 'v' // v-
     ? k.charAt(1) === '-'
     : false
@@ -22,19 +22,19 @@ const isDirective = k => {
 function Text(buf, pos) {
   this.buf = buf
   this.type = 'text'
-  if (pos) this.pos = pos
+  if (pos) this.position = pos
 }
 
 function Comment(buf, pos) {
   this.buf = buf
   this.type = 'comment'
-  if (pos) this.pos = pos
+  if (pos) this.position = pos
 }
 
 function Expression(buf, pos) {
   this.buf = buf
   this.type = 'expression'
-  if (pos) this.pos = pos
+  if (pos) this.position = pos
 }
 
 function Node(buf, parent, pos) {
@@ -44,14 +44,14 @@ function Node(buf, parent, pos) {
   this.directives = []
   this.parent = parent
   this.tagName = buf.toLowerCase()
-  if (pos) this.pos = pos
+  if (pos) this.position = pos
 }
 
 function Directive(key, buf, pos) {
   this.buf = buf
   const char = key.charAt(0)
-  if (dMap[char]) {
-    this.type = dMap[char]
+  if (alias[char]) {
+    this.type = alias[char]
     this.typeBuf = key.slice(1)
   } else {
     const delimiterIdx = key.indexOf(':', 2)
@@ -64,7 +64,7 @@ function Directive(key, buf, pos) {
     }
   }
   // position 只是表达式的位置，方便在 js 中执行时使用 sourcemap
-  if (pos) this.pos = pos
+  if (pos) this.position = pos
 }
 
 export function parse(input, opts = { pos: true }) {
@@ -75,8 +75,8 @@ export function parse(input, opts = { pos: true }) {
     ? `[${t.pos.start.line},${t.pos.start.column}]: `
     : ''
   const back = (i) => {
-    if (node.pos) {
-      node.pos.end = ts[i].pos.end
+    if (node.position) {
+      node.position.end = ts[i].pos.end
     }
     const p = node.parent
     if (!opts.parent) delete node.parent

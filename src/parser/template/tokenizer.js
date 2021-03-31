@@ -99,7 +99,6 @@ export function tokenizer(input, pos) {
 
   for (let i = 0, l = input.length; i < l; i++) {
     const char = input.charAt(i)
-    const isLine = isNewline(char)
     if (add(char)) continue
 
     if (char === '<') {
@@ -181,7 +180,7 @@ export function tokenizer(input, pos) {
         push()
         advancePos(char)
       }
-    } else if (char === ' ' || isLine) {
+    } else if (char === ' ' || isNewline(char)) {
       push()
       // 在引号或者在文本中的空格换行已经增量添加，这里不需要 buf += char
       if (ctx.startTag) {

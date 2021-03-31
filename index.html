@@ -6,13 +6,13 @@
   function testPosition(code, nodes) {
     const input = code.split('\n')
     const test = (node) => {
-      const { pos, buf, type, children, directives } = node
+      const { buf, type, position, children, directives } = node
       children && children.forEach(test)
       directives && directives.forEach(test)
-      if (!pos) return
+      if (!position) return
 
       let str = ''
-      const { start, end } = pos
+      const { start, end } = position
       if (end.line === start.line) {
         str = input[start.line].slice(start.column, end.column)
       } else {
@@ -72,10 +72,7 @@
   console.time('a')
   const nodes = parse(text)
   console.timeEnd('a')
-
-  setTimeout(() => {
-    testPosition(text, nodes)
-  }, 1000)
+  // testPosition(text, nodes)
 
   // 大文件测试
   fetch('./larger.html').then(res => res.text()).then(code => {
