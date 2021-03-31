@@ -1,5 +1,6 @@
 import { tokenizer } from './tokenizer.js'
 
+// 暂时只做只有一个字符的别名
 const alias = {
   '@': 'on',
   ':': 'bind',
