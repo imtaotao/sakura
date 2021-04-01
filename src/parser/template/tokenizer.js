@@ -22,6 +22,7 @@ export function tokenizer(input, pos) {
 
   function token() {
     this.buf = buf
+    // types
     this.expr = ctx.inExpr
     this.text = ctx.inText
     this.startTag = ctx.startTag

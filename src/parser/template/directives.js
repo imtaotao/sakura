@@ -1,7 +1,8 @@
 const errorReg = /[\s,\(\)]/
 
+// 一般文件展示都是从第一行开始
 export const posMsg = (pos) => pos
-  ? `[${pos.start.line},${pos.start.column}]: `
+  ? `[${pos.start.line + 1},${pos.start.column}]: `
   : ''
 
 // v-for=val in data

@@ -66,9 +66,7 @@ function Directive(key, buf, pos) {
     }
   }
   if (this.type === 'for') {
-    console.time('for')
     this.buf = parseFor(this.buf, pos)
-    console.timeEnd('for')
   }
   // position 只是表达式的位置，方便在 js 中执行时使用 sourcemap
   if (pos) this.position = pos

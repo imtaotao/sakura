@@ -3,22 +3,12 @@
 <body>
 <script type="module">
   import { render } from './src/index.js'
-  
-  const text = `
-    <div>
-      <script>
-        ctx.state.data = [
-          { age: 22 },
-          { name: 'ct' },
-        ]  
-      <\/script>
-      <span v-for="( key ,  val) in invalue">
-        {{ key }}: {{ value }}
-      </span>
-    </div>
-  `
-  const doms = render(() => text, document.body)
-  console.log(doms);
+
+  const curDevTpl = 'vFor'
+  fetch(`./template/${curDevTpl}.html`).then(b => b.text()).then(code => {
+    const doms = render(() => code, document.body)
+    console.log(doms);
+  })
 </script>
 </body>
 </html>
