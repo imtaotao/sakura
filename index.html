@@ -12,14 +12,6 @@
           color: red; content: '<div> 11</div>'
         }
       </style>
-      <div
-        class="title"
-        @click="click"
-      >
-        {{ title }} a 31 {{fd}}
-      </div>
-      <!-- <aa> -->
-      <>11</>
       <script>
         console.log(ctx)
         ctx.state.title = 'tao'
@@ -27,6 +19,19 @@
           ctx.state.title = 'taotao'
         }
       <\/script>
+      <div
+        class="title"
+        @click="click"
+      >
+        {{title}}
+        {{ ctx.fns.click(), '--' }}
+        {{title}}
+      </div>
+      <!-- <aa> -->
+      <>
+        {{ ctx.state.title }}
+        11
+      </>
     </div>
   `
   const doms = render(() => text, document.body)

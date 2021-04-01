@@ -7,8 +7,16 @@ const cacheMap = new WeakMap()
 class Context {
   constructor(props) {
     this.fns = {}
+    this.cms = {}
     this.state = {}
     this.props = props || {}
+  }
+
+  addComponent(name, cm) {
+    if (this.state[name]) {
+      throw Error(`"${name}" component has been registered.`)
+    }
+    this.cms[name] = cm
   }
 }
 
