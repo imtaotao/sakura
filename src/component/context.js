@@ -26,5 +26,6 @@ export function render(cm, parent, props) {
   const nodes = cacheMap.has(template)
     ? cacheMap.get(template)
     : parse(template)
+  console.log(nodes);
   return nodes.map(n => createElement(parent, n, context))
 }

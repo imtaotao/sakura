@@ -1,5 +1,6 @@
 import { isSVG }  from '../utils.js'
 import { FragmentNode } from './fragment.js'
+import { execDirectives } from './directives.js'
 import { execExpr, execScript } from '../sandbox/runtime.js'
 
 const xChar = 120

@@ -1,4 +1,4 @@
-import { render } from './component/define.js'
+import { render } from './component/context.js'
 
 export {
   render,

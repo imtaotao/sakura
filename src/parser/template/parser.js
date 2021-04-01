@@ -1,4 +1,5 @@
 import { tokenizer } from './tokenizer.js'
+import { posMsg, parseFor } from './directives.js'
 
 // 暂时只做只有一个字符的别名
 const alias = {
@@ -64,6 +65,11 @@ function Directive(key, buf, pos) {
       this.typeBuf = null
     }
   }
+  if (this.type === 'for') {
+    console.time('for')
+    this.buf = parseFor(this.buf, pos)
+    console.timeEnd('for')
+  }
   // position 只是表达式的位置，方便在 js 中执行时使用 sourcemap
   if (pos) this.position = pos
 }
@@ -72,9 +78,6 @@ export function parse(input, opts = { pos: true }) {
   let node = new Node('', null)
   if (!opts.parent) delete node.parent
   const ts = tokenizer(input, opts.pos)
-  const posMsg = (t) => t.pos
-    ? `[${t.pos.start.line},${t.pos.start.column}]: `
-    : ''
   const back = (i) => {
     if (node.position) {
       node.position.end = ts[i].pos.end
@@ -135,7 +138,7 @@ export function parse(input, opts = { pos: true }) {
         const endTag = buf === '>' ? '' : buf.toLowerCase()
         if (endTag !== node.tagName) {
           throw SyntaxError(
-            `${posMsg(t)}Invalid end tag.`
+            `${posMsg(t.pos)}Invalid end tag.`
           )
         }
         // <></> 不是单标签，这种情况 i++ 也是可以的

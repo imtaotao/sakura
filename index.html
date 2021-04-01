@@ -5,33 +5,16 @@
   import { render } from './src/index.js'
   
   const text = `
-    <div v-name="demo" v-bind:a="ff">
-      <br>
-      <style scoped>
-        .title {
-          color: red; content: '<div> 11</div>'
-        }
-      </style>
+    <div>
       <script>
-        console.log(ctx)
-        ctx.state.title = 'tao'
-        ctx.fns.click = () => {
-          ctx.state.title = 'taotao'
-        }
+        ctx.state.data = [
+          { age: 22 },
+          { name: 'ct' },
+        ]  
       <\/script>
-      <div
-        class="title"
-        @click="click"
-      >
-        {{title}}
-        {{ ctx.fns.click(), '--' }}
-        {{title}}
-      </div>
-      <!-- <aa> -->
-      <>
-        {{ ctx.state.title }}
-        11
-      </>
+      <span v-for="( key ,  val) in invalue">
+        {{ key }}: {{ value }}
+      </span>
     </div>
   `
   const doms = render(() => text, document.body)

@@ -1,6 +1,6 @@
 const childlessTags = 'style,script,template'.split(',')
-const isNewline = c => c === '\n' || c === '\t' || c === '\r'
 const lessTag = (t) => childlessTags.indexOf(t) > -1
+const isNewline = c => c === '\n' || c === '\t' || c === '\r'
 
 export function tokenizer(input, pos) {
   let buf = ''
