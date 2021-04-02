@@ -49,6 +49,11 @@ export function Node(buf, parent, pos) {
   if (pos) this.position = pos
 }
 
+export function Attribute(key, buf) {
+  this.key = key
+  this.buf = buf
+}
+
 export function Directive(key, buf, pos) {
   this.buf = buf
   const char = key.charAt(0)
@@ -128,7 +133,7 @@ export function parse(input, opts = { pos: true }) {
             if (buf === true) buf = ''
             node.directives.push(new Directive(key, buf, t.pos))
           } else {
-            node.attributes.push({ key, buf })
+            node.attributes.push(new Attribute(key, buf))
           }
         }
       }
@@ -138,9 +143,7 @@ export function parse(input, opts = { pos: true }) {
         const buf = ts[i].buf
         const endTag = buf === '>' ? '' : buf.toLowerCase()
         if (endTag !== node.tagName) {
-          throw SyntaxError(
-            `${posMsg(t.pos)}Invalid end tag.`
-          )
+          throw SyntaxError(`${posMsg(t.pos)}Invalid end tag.`)
         }
         // <></> 不是单标签，这种情况 i++ 也是可以的
         i++

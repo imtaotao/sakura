@@ -7,21 +7,9 @@ const addTempScope = (scope, obj) => {
 }
 
 // TODO: 后面根据 position 更改 sourcemap
-const execCommon = (node, context) => {
+export const execCommon = (node, context) => {
   const { buf, position } = node
   return new Function('ctx', `with(ctx.state){return(${buf})}`)(context)
-}
-
-export function execExpr(node, context) {
-  return execCommon(node, context)
-}
-
-export function execIf(node, context) {
-  return execCommon(node, context)
-}
-
-export function execText(node, context) {
-  return execCommon(node, context)
 }
 
 export function execFor(node, context, cb) {
@@ -50,7 +38,7 @@ export function execFor(node, context, cb) {
   )
   context.state = scope
   new Function('ctx', forCb, code)(context, cb)
-  return recover
+  context.state = recover()
 }
 
 export function execScript(node, attributes, context) {

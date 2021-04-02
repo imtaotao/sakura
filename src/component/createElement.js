@@ -1,7 +1,7 @@
 import { isSVG }  from '../utils.js'
 import { FragmentNode } from './fragment.js'
 import { execDirectives } from './directives.js'
-import { execExpr, execScript } from '../sandbox/runtime.js'
+import { execCommon, execScript } from '../sandbox/runtime.js'
 
 const xChar = 120
 const colonChar = 58
@@ -64,7 +64,7 @@ export function createElement(parent, node, context) {
   } else if (type === 'comment') {
     dom = document.createComment(buf)
   } else if (type === 'expression') {
-    const text = String(execExpr(node, context))
+    const text = String(execCommon(node, context))
     dom = document.createTextNode(text)
   } else if (type === 'node') {
     dom = createEleByNode(node, context)

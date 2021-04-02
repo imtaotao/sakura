@@ -1,12 +1,19 @@
 <div>
   <script>
+    ctx.state.tao = 1
     ctx.state.data = [
       { age: 22 },
       { name: 'ct' },
     ]
-    ctx.state.xx = 1
   </script>
-  <div v-for="val in data">
-    <span v-for="v in val" v-text="`${key}: ${v}`"/>
+
+  <div v-for="(k, val) in data">
+    <span
+      v-show="k === 0"
+      v-for="v in val"
+      v-text="`${key}: ${v}`"
+      style="display: false; color: red"
+    />
+    {{ k }} {{ console.log(ctx.state), 'abc' }}
   </div>
 </div>
