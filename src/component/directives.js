@@ -40,9 +40,6 @@ export function execDirectives(node, context, createEle) {
   const customDirectives = []
   const { position, directives, attributes } = node
 
-  if (directives.length === 0) {
-    return createEle(2, node)
-  }
   for (let i = 0, l = directives.length; i < l; i++) {
     const cur = directives[i]
     const { type, isCustom } = cur
