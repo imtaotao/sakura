@@ -26,8 +26,8 @@ const concatDisplayStyle = (attributes, isShow) => {
     style = new Attribute('style', `display:${val}`)
     attributes.push(style)
   } else {
-    const sheets = style.buf.split(';').map(v => v.trim().split(':').map(v => v.trim()))
-    const display = sheets.find(v => v[0] === 'display')
+    const sheets = style.buf.split(';').map(v => v.split(':'))
+    const display = sheets.find(v => /display/i.test(v[0]))
     display
       ? (display[1] = val)
       : sheets.push(['display', val])
