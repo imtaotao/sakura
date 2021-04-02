@@ -1,5 +1,5 @@
 import { tokenizer } from './tokenizer.js'
-import { posMsg, parseFor } from './directives.js'
+import { posMsg, parseFor, isCustomDirective, sortDirectives } from './directives.js'
 
 // 暂时只做只有一个字符的别名
 const alias = {
@@ -21,25 +21,25 @@ const isDirective = k => {
     : false
 }
 
-function Text(buf, pos) {
+export function Text(buf, pos) {
   this.buf = buf
   this.type = 'text'
   if (pos) this.position = pos
 }
 
-function Comment(buf, pos) {
+export function Comment(buf, pos) {
   this.buf = buf
   this.type = 'comment'
   if (pos) this.position = pos
 }
 
-function Expression(buf, pos) {
+export function Expression(buf, pos) {
   this.buf = buf
   this.type = 'expression'
   if (pos) this.position = pos
 }
 
-function Node(buf, parent, pos) {
+export function Node(buf, parent, pos) {
   this.type = 'node'
   this.children = []
   this.attributes = []
@@ -49,7 +49,7 @@ function Node(buf, parent, pos) {
   if (pos) this.position = pos
 }
 
-function Directive(key, buf, pos) {
+export function Directive(key, buf, pos) {
   this.buf = buf
   const char = key.charAt(0)
   if (alias[char]) {
@@ -68,20 +68,22 @@ function Directive(key, buf, pos) {
   if (this.type === 'for') {
     this.buf = parseFor(this.buf, pos)
   }
+  this.isCustom = isCustomDirective(this.type)
   // position 只是表达式的位置，方便在 js 中执行时使用 sourcemap
   if (pos) this.position = pos
 }
 
 export function parse(input, opts = { pos: true }) {
-  let node = new Node('', null)
+  let node = new Node('', null, null)
   if (!opts.parent) delete node.parent
   const ts = tokenizer(input, opts.pos)
   const back = (i) => {
+    const p = node.parent
+    if (!opts.parent) delete node.parent
     if (node.position) {
       node.position.end = ts[i].pos.end
     }
-    const p = node.parent
-    if (!opts.parent) delete node.parent
+    node.directives = sortDirectives(node.directives)
     node = p
   }
 
@@ -123,6 +125,7 @@ export function parse(input, opts = { pos: true }) {
             buf = t.buf
           }
           if (isDirective(key)) {
+            if (buf === true) buf = ''
             node.directives.push(new Directive(key, buf, t.pos))
           } else {
             node.attributes.push({ key, buf })
@@ -152,5 +155,6 @@ export function parse(input, opts = { pos: true }) {
       }
     }
   }
+  console.log(node.children);
   return node.children
 }

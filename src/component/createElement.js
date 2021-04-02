@@ -9,9 +9,13 @@ const ns = 'http://www.w3.org/2000/svg';
 const xlinkNS = 'http://www.w3.org/1999/xlink'
 const xmlNS = 'http://www.w3.org/XML/1998/namespace'
 
+// 游标节点
+function cursorElement(buf) {
+  return document.createComment(buf)
+}
+
 function applyAttributes(dom, attributes) {
-  console.log(attributes);
-  if (attributes.length === 0) return;
+  if (attributes.length === 0) return
   for (const { key, buf } of attributes) {
     if (key.charCodeAt(0) !== xChar) {
       dom.setAttribute(key, buf)
@@ -26,21 +30,29 @@ function applyAttributes(dom, attributes) {
 }
 
 function createEleByNode(node, context) {
-  let dom
-  const { tagName, children, attributes, directives } = node
-  if (tagName === 'script') {
-    execScript(node, attributes, context)
-    dom = document.createComment('<script/>')
-  } else {
-    dom = tagName === ''
-      ? new FragmentNode()
-      : isSVG(tagName)
-        ? document.createElementNS(ns, tagName)
-        : document.createElement(tagName)
-    applyAttributes(dom, attributes)
-    children.forEach(child => createElement(dom, child, context))
-  }
-  return dom
+  return execDirectives(node, context, (type, curNode) => {
+    if (type === 1) {
+      return cursorElement(curNode.tagName)
+    } else if (type === 2) {
+      let dom
+      const { tagName, children, attributes } = curNode
+      if (tagName === 'script') {
+        execScript(curNode, attributes, context)
+        dom = document.createComment('<script/>')
+      } else {
+        dom = tagName === ''
+          ? new FragmentNode()
+          : isSVG(tagName)
+            ? document.createElementNS(ns, tagName)
+            : document.createElement(tagName)
+        applyAttributes(dom, attributes)
+        children.forEach(child => createElement(dom, child, context))
+      }
+      return dom
+    } else if (type === 3) {
+      return createEleByNode(curNode, context)
+    }
+  })
 }
 
 export function createElement(parent, node, context) {

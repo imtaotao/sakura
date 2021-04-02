@@ -1,4 +1,4 @@
-import { createElement } from './dom.js'
+import { createElement } from './createElement.js'
 import { parse } from '../parser/template/parser.js'
 
 const cacheMap = new WeakMap()
@@ -26,6 +26,5 @@ export function render(cm, parent, props) {
   const nodes = cacheMap.has(template)
     ? cacheMap.get(template)
     : parse(template)
-  console.log(nodes);
   return nodes.map(n => createElement(parent, n, context))
 }

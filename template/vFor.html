@@ -4,8 +4,9 @@
       { age: 22 },
       { name: 'ct' },
     ]
+    ctx.state.xx = 1
   </script>
-  <span v-for="key,  val in invalue">
-    {{ key }}: {{ value }}
-  </span>
+  <div v-for="val in data">
+    <span v-for="v in val" v-text="`${key}: ${v}`"/>
+  </div>
 </div>
