@@ -38,7 +38,7 @@ function createEleByNode(node, context) {
       const { tagName, children, attributes } = curNode
       if (tagName === 'script') {
         execScript(curNode, attributes, context)
-        dom = document.createComment('<script/>')
+        dom = cursorElement('<script/>')
       } else {
         dom = tagName === ''
           ? new FragmentNode()
