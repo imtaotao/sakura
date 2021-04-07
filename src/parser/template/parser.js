@@ -73,6 +73,9 @@ export function Directive(key, buf, pos) {
   if (this.type === 'for') {
     this.buf = parseFor(this.buf, pos)
   }
+  if (this.type === 'bind' && !this.typeBuf) {
+    throw SyntaxError(`"${key}" syntax error.`)
+  }
   this.isCustom = isCustomDirective(this.type)
   // position 只是表达式的位置，方便在 js 中执行时使用 sourcemap
   if (pos) this.position = pos
@@ -158,6 +161,5 @@ export function parse(input, opts = { pos: true }) {
       }
     }
   }
-  console.log(node.children);
   return node.children
 }
