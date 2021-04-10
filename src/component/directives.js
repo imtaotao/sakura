@@ -42,7 +42,7 @@ export function execDirectives(node, context, createEle) {
 
   for (let i = 0, l = directives.length; i < l; i++) {
     const cur = directives[i]
-    const { type, isCustom } = cur
+    const { type, typeBuf, isCustom } = cur
 
     if (isCustom) {
       customDirectives.push(cur)
@@ -63,7 +63,11 @@ export function execDirectives(node, context, createEle) {
           needBreak = true
         }
       } else if (type === 'bind') {
-        
+        const val = String(execCommon(cur, context))
+        const attr = attributes.find(v => v.key === typeBuf)
+        attr
+          ? attr.buf = val
+          : attributes.push(new Attribute(typeBuf, val))
       } else if (type === 'on') {
 
       } else if (type === 'show') {

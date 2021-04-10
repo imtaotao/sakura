@@ -5,6 +5,7 @@
       { age: 22 },
       { name: 'ct' },
     ]
+    ctx.state.pid = 121
   </script>
 
   <div v-for="(k, val) in data">
@@ -13,7 +14,8 @@
       v-for="v in val"
       v-text="`${key}: ${v}`"
       style=" display: false; color: red"
+      v-bind:id="pid"
     />
-    {{ k }} {{ console.log(ctx.state), 'abc' }}
+    {{ k }} {{ 'abc' }}
   </div>
 </div>
