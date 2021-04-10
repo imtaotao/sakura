@@ -6,7 +6,7 @@ const cloneAttribute = (attr) => {
   return new Attribute(attr.key, attr.buf)
 }
 
-const cloneNode = (node) => {
+const cloneNode = (node, filterFor) => {
   const cloned = new Node(
     node.tagName,
     node.parent,
@@ -14,7 +14,9 @@ const cloneNode = (node) => {
   )
   cloned.children = node.children.map(v => v)
   cloned.attributes = node.attributes.map(v => cloneAttribute(v))
-  cloned.directives = node.directives.filter(d => d.type !== 'for')
+  cloned.directives = !filterFor
+    ? node.directives.map(v => v)
+    : node.directives.filter(d => d.type !== 'for')
   return cloned
 }
 
@@ -36,7 +38,9 @@ const concatDisplayStyle = (attributes, isShow) => {
 }
 
 export function execDirectives(node, context, createEle) {
+  node = cloneNode(node)
   let dom, needBreak
+  const events = []
   const customDirectives = []
   const { position, directives, attributes } = node
 
@@ -53,7 +57,8 @@ export function execDirectives(node, context, createEle) {
       if (type === 'for') {
         dom = new FragmentNode()
         execFor(cur, context, () => {
-          dom.appendChild(createEle(3, cloneNode(node))) // 递归 v-for
+          // 递归 v-for
+          dom.appendChild(createEle(3, cloneNode(node, true)))
         })
         break
       } else if (type === 'if') {
@@ -69,7 +74,7 @@ export function execDirectives(node, context, createEle) {
           ? attr.buf = val
           : attributes.push(new Attribute(typeBuf, val))
       } else if (type === 'on') {
-
+        events.push(dom => dom[`on${typeBuf}`] = execCommon(cur, context))
       } else if (type === 'show') {
         const canShow = Boolean(execCommon(cur, context)) === true
         concatDisplayStyle(attributes, canShow)
@@ -85,5 +90,6 @@ export function execDirectives(node, context, createEle) {
   // customDirectives.forEach(({ buf, type }) => {
   //   console.log('customDirective', type, buf);
   // })
+  events.forEach(fn => fn(dom))
   return dom
 }
