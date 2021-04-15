@@ -1,8 +1,8 @@
 <script>
   ctx.state.tao = 1
   ctx.state.data = [
-    { age: 22, fn: () => { console.log(0, val) } },
-    { name: 'ct',  fn: () => { console.log(1, val) } },
+    { age: 22 },
+    { name: 'ct' },
   ]
   ctx.state.pid = 121
   ctx.click = function(e) {
@@ -14,7 +14,7 @@
   <div v-for="(k, val) in data">
     <span
       v-bind:id="pid"
-      @click="val.fn"
+      @click="() => ctx.click(k)"
     >
       {{ k }}
     </span>

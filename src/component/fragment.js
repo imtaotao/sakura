@@ -25,17 +25,13 @@ export class FragmentNode {
     const ls = []
     for (let i = 0, l = this.children.length; i < l; i++) {
       const node = this.children[i]
-      node.isFragment
-        ? ls.push.apply(ls, node.nodes)
-        : ls.push(node)
+      node.isFragment ? ls.push.apply(ls, node.nodes) : ls.push(node)
     }
     return ls
   }
 
   realParent() {
-    return this.parent.isFragment
-      ? this.parent.realParent()
-      : this.parent
+    return this.parent.isFragment ? this.parent.realParent() : this.parent
   }
 
   appendChild(child) {

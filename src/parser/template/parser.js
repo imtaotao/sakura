@@ -1,19 +1,24 @@
 import { tokenizer } from './tokenizer.js'
-import { posMsg, parseFor, isCustomDirective, sortDirectives } from './directives.js'
+import {
+  posMsg,
+  parseFor,
+  isCustomDirective,
+  sortDirectives,
+} from './directives.js'
 
 // 暂时只做只有一个字符的别名
 const alias = {
   '@': 'on',
   ':': 'bind',
 }
-const voidTags =(
+const voidTags = (
   '!doctype,area,base,br,col,' +
   'command,embed,hr,img,input,meta,' +
   'keygen,link,param,source,track,wbr'
 ).split(',')
 
-const isSingleTag = t => voidTags.indexOf(t) > -1
-const isDirective = k => {
+const isSingleTag = (t) => voidTags.indexOf(t) > -1
+const isDirective = (k) => {
   const char = k.charAt(0)
   if (alias[char]) return true
   return char === 'v' // v-
@@ -140,7 +145,7 @@ export function parse(input, opts = { pos: true }) {
           }
         }
       }
-    } else if(t.closeTag) {
+    } else if (t.closeTag) {
       if (t.buf === '</') {
         i++
         const buf = ts[i].buf

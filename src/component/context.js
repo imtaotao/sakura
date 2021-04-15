@@ -1,3 +1,4 @@
+import { Actuator } from '../sandbox/actuator.js'
 import { createElement } from './createElement.js'
 import { parse } from '../parser/template/parser.js'
 
@@ -23,8 +24,9 @@ class Context {
 export function render(cm, parent, props) {
   const template = cm()
   const context = new Context(props)
+  const actuator = new Actuator(context)
   const nodes = cacheMap.has(template)
     ? cacheMap.get(template)
     : parse(template)
-  return nodes.map(n => createElement(parent, n, context))
+  return nodes.map((n) => createElement(parent, n, actuator))
 }

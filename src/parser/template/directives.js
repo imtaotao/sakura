@@ -11,7 +11,7 @@ const directivesPriority = [
 const errorReg = /[\s,\(\)]/
 const customIdx = directivesPriority.length
 const parsingDirectives = Object.create(null)
-directivesPriority.forEach((k, i) => parsingDirectives[k] = { i })
+directivesPriority.forEach((k, i) => (parsingDirectives[k] = { i }))
 
 export function sortDirectives(ds) {
   return ds.sort((a, b) => {
@@ -21,21 +21,23 @@ export function sortDirectives(ds) {
   })
 }
 
-export const isCustomDirective = t => directivesPriority.indexOf(t) < 0
+export const isCustomDirective = (t) => directivesPriority.indexOf(t) < 0
 
 // 一般文件展示都是从第一行开始
-export const posMsg = (pos) => pos
-  ? `[${pos.start.line + 1},${pos.start.column}]: `
-  : ''
+export const posMsg = (pos) =>
+  pos ? `[${pos.start.line + 1},${pos.start.column}]: ` : ''
 
 // v-for=val in data
 // v-for=(key, val) in data
 export function parseFor(buf, pos) {
-  let key = '', val = '', seg = 0, scope = 0
+  let key = '',
+    val = '',
+    seg = 0,
+    scope = 0
   const res = {}
   const symbol = ' in '
   const inIdx = buf.indexOf(symbol)
-  const check = s => errorReg.test(s) && error()
+  const check = (s) => errorReg.test(s) && error()
   const error = () => {
     throw SyntaxError(`${posMsg(pos)}v-for="${buf}" syntax error.`)
   }
@@ -53,7 +55,7 @@ export function parseFor(buf, pos) {
       if (scope === 0) error()
       seg++
     } else {
-      seg > 0 ? val += c : key += c 
+      seg > 0 ? (val += c) : (key += c)
     }
   }
 

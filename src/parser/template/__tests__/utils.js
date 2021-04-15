@@ -14,11 +14,11 @@ export function testPosition(code, nodes) {
     } else {
       for (let i = start.line; i < end.line + 1; i++) {
         if (i === start.line) {
-          str += (input[i].slice(start.column) + '\n')
+          str += input[i].slice(start.column) + '\n'
         } else if (i === end.line) {
           str += input[i].slice(0, end.column)
         } else {
-          str += (input[i] + '\n')
+          str += input[i] + '\n'
         }
       }
     }

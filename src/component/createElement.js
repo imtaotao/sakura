@@ -1,11 +1,10 @@
-import { isSVG }  from '../utils.js'
 import { FragmentNode } from './fragment.js'
+import { isSVG, toString } from '../utils.js'
 import { execDirectives } from './directives.js'
-import { execCommon, execScript } from '../sandbox/runtime.js'
 
 const xChar = 120
 const colonChar = 58
-const ns = 'http://www.w3.org/2000/svg';
+const ns = 'http://www.w3.org/2000/svg'
 const xlinkNS = 'http://www.w3.org/1999/xlink'
 const xmlNS = 'http://www.w3.org/XML/1998/namespace'
 
@@ -29,50 +28,50 @@ function applyAttributes(dom, attributes) {
   }
 }
 
-function createEleByNode(node, context) {
-  return execDirectives(node, context, (type, curNode) => {
+function createEleByNode(node, actuator) {
+  return execDirectives(node, actuator, (type, curNode) => {
     if (type === 1) {
       return cursorElement(curNode.tagName)
     } else if (type === 2) {
       let dom
       const { tagName, children, attributes } = curNode
       if (tagName === 'script') {
-        execScript(curNode, attributes, context)
+        actuator.execScript(curNode)
         dom = cursorElement('<script/>')
       } else {
-        dom = tagName === ''
-          ? new FragmentNode()
-          : isSVG(tagName)
-            ? document.createElementNS(ns, tagName)
-            : document.createElement(tagName)
+        // prettier-ignore
+        dom =
+          tagName === ''
+            ? new FragmentNode()
+            : isSVG(tagName)
+              ? document.createElementNS(ns, tagName)
+              : document.createElement(tagName)
         applyAttributes(dom, attributes)
-        children.forEach(child => createElement(dom, child, context))
+        children.forEach((child) => createElement(dom, child, actuator))
       }
       return dom
     } else if (type === 3) {
-      return createEleByNode(curNode, context)
+      return createEleByNode(curNode, actuator)
     }
   })
 }
 
-export function createElement(parent, node, context) {
+export function createElement(parent, node, actuator) {
   let dom
-  const { buf, type} = node
+  const { buf, type } = node
 
   if (type === 'text') {
     dom = document.createTextNode(buf)
   } else if (type === 'comment') {
     dom = document.createComment(buf)
   } else if (type === 'expression') {
-    const text = String(execCommon(node, context))
+    const text = toString(actuator.execCommon(node))
     dom = document.createTextNode(text)
   } else if (type === 'node') {
-    dom = createEleByNode(node, context)
+    dom = createEleByNode(node, actuator)
   }
   if (parent) {
-    dom.isFragment
-      ? dom.appendChildInParent(parent)
-      : parent.appendChild(dom)
+    dom.isFragment ? dom.appendChildInParent(parent) : parent.appendChild(dom)
   }
   return dom
 }

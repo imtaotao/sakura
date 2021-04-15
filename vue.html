@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<div id="app">
+  <div v-for="(k, val) in data">
+    <span
+      v-bind:id="pid"
+      @click="a(val)"
+    >
+      {{ k }} {{ val }}
+    </span>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      data: [
+        { age: 22 },
+        { name: 'ct'},
+      ]
+    },
+    methods: {
+      a(v) {
+        console.log(v);
+      }
+    }
+  })
+</script>
+</body>
+</html>

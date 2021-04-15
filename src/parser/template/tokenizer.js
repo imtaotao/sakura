@@ -1,12 +1,12 @@
 const childlessTags = 'style,script,template'.split(',')
 const lessTag = (t) => childlessTags.indexOf(t) > -1
-const isNewline = c => c === '\n' || c === '\t' || c === '\r'
+const isNewline = (c) => c === '\n' || c === '\t' || c === '\r'
 
 export function tokenizer(input, pos) {
   let buf = ''
   let line = pos ? 0 : null
   let column = line
-  
+
   const ts = []
   const ctx = {
     lessTag: null,
@@ -51,7 +51,7 @@ export function tokenizer(input, pos) {
       }
     }
   }
-  
+
   const advancePos = (buf) => {
     if (!pos) return
     updatePosition(buf)
@@ -197,8 +197,8 @@ export function tokenizer(input, pos) {
         const endOfExpr = input.indexOf(endChar, i)
         if (endOfExpr > -1) {
           buf = input.slice(i + 2, endOfExpr)
-          push()
           i = endOfExpr + 1
+          push()
           ctx.inExpr = false
           advancePos(endChar)
         }
