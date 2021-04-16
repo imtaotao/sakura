@@ -1,3 +1,5 @@
+import { toBase64 } from '../utils.js'
+
 // https://github.com/mozilla/source-map/blob/master/lib/base64-vlq.js
 // http://www.ruanyifeng.com/blog/2013/01/javascript_source_map.html
 const VLQ_BASE_SHIFT = 5
@@ -37,17 +39,19 @@ function encoded(aValue) {
   return encoded
 }
 
-function genMappings(source) {
+function genMappings(source, position) {
+  const { line, column } = position.start
   const lines = source.split('\n')
-  const code = (l) => encoded(0) + encoded(0) + encoded(l) + encoded(0)
-  return code(-1) + ';' + lines.map((v) => code(1)).join(';')
+  const code = (l, c) => encoded(0) + encoded(0) + encoded(l) + encoded(c)
+  return code(line - 2, column) + ';' + lines.map((v) => code(1, 1)).join(';')
 }
 
-export default function (resource, responseURL) {
+export function genSourcemap(resource, responseURL, position) {
   const content = JSON.stringify({
     version: 3,
+    file: responseURL,
     sources: [responseURL],
-    mappings: genMappings(resource),
+    mappings: genMappings(resource, position),
   })
-  return `//@ sourceMappingURL=data:application/json;base64,${btoa(content)}`
+  return `\n//@ sourceMappingURL=${toBase64(content)}`
 }

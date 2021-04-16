@@ -24,7 +24,7 @@ class Context {
 export function render(cm, parent, props) {
   const template = cm()
   const context = new Context(props)
-  const actuator = new Actuator(context)
+  const actuator = new Actuator(context, template)
   const nodes = cacheMap.has(template)
     ? cacheMap.get(template)
     : parse(template)

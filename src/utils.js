@@ -24,3 +24,7 @@ export function makeMap(list) {
 export function toString(v) {
   return v && typeof v === 'object' ? JSON.stringify(v) : String(v)
 }
+
+export function toBase64(v) {
+  return `data:application/json;base64,${btoa(v)}`
+}

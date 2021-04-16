@@ -74,6 +74,5 @@ export function parseFor(buf, pos) {
 
   check(key)
   check(val)
-  check(res.list)
   return res
 }

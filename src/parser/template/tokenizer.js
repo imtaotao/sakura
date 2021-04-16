@@ -64,7 +64,7 @@ export function tokenizer(input, pos) {
     ts.length--
     if (pos) {
       const t = last()
-      if (t.pos.end.line === null) return
+      if (!t.pos || t.pos.end.line === null) return
       line = t.pos.end.line
       column = t.pos.end.column
     }
