@@ -1,5 +1,6 @@
 import { Scope } from './scope.js'
 import { toBase64 } from '../utils.js'
+import { sourceMappingURL } from './sourcemap.js'
 
 export class Actuator {
   constructor(context, template) {
@@ -10,24 +11,41 @@ export class Actuator {
     this.scopeManager = new Scope(this.context.state)
   }
 
+  sourcemap(code, position) {
+    if (!position) return code
+    return `${code}${sourceMappingURL(code, this.template, position)}`
+  }
+
   createExecutor(code, position) {
     const { name, context, scopeManager } = this
     const scope = scopeManager.scope
     const args = scopeManager.currentIsBase()
       ? ''
       : Object.keys(scope).join(',')
-    const execCode = `with(${name}){return(function(${args}){${code}})(${args})}`
+    const execCode = this.sourcemap(
+      `with(${name}){return(function(${args}){${code}})(${args})}`,
+      position,
+    )
     return new Function('ctx', name, execCode)(context, scope)
   }
 
+  // 第一行需要用新增的脚本 - <script>
+  // 后面的行数不变
   execScript(node) {
     const { children, position } = node
-    return this.createExecutor(children[0].buf, position)
+    const p = {
+      line: position.start.line - 2,
+      column: position.start.column, // '<script>.length'
+    }
+    return this.createExecutor(children[0].buf, p)
   }
 
   execCommon(node) {
     const { buf, position } = node
-    return this.createExecutor(`return(${buf})`, position)
+    return this.createExecutor(`return(${buf})`, {
+      line: position.start.line - 2,
+      column: position.start.column,
+    })
   }
 
   execFor(node, cb) {
@@ -38,19 +56,25 @@ export class Actuator {
       list,
       args: { val, key },
     } = buf
-    const code = `with(${name}) {
-      const l = ${list};
-      if (!l) return;
-      if (Array.isArray(l)) {
-        for (let i = 0; i < l.length; i++) {
-          ${forCb}(i, l[i]);
+    const code = this.sourcemap(
+      `with(${name}) {
+        const l = ${list};
+        if (!l) return;
+        if (Array.isArray(l)) {
+          for (let i = 0; i < l.length; i++) {
+            ${forCb}(i, l[i]);
+          }
+        } else {
+          for (const k in l) {
+            ${forCb}(k, l[k]);
+          }
         }
-      } else {
-        for (const k in l) {
-          ${forCb}(k, l[k]);
-        }
-      }
-    }`
+      }`,
+      {
+        line: position.start.line - 3,
+        column: position.start.column - 3,
+      },
+    )
 
     scopeManager.create()
     new Function('ctx', name, forCb, code)(

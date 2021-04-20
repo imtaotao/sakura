@@ -5,18 +5,23 @@
     { name: 'ct' },
   ]
   ctx.state.pid = 121
-  ctx.click = function(e) {
-    console.log(e);
+  console.log(121);
+  ctx.click = function(k, val) {
+    console.log(k, val, ctx.state, a);
   }
 </script>
 
+<script>
+  console.log(1, 2, 3);
+</script>
+
 <div>
-  <div v-for="(k, val) in [1,2]">
+  <div v-for="(k, val) in data">
     <span
-      @click="() => ctx.click(k)"
+      @click="() => ctx.click(k, val)"
     >
       {{ k }}
+      {{ console.log(ctx) }}
     </span>
   </div>
-  {{ pid }}
 </div>

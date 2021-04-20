@@ -42,8 +42,8 @@
   const curDevTpl = 'vFor'
   fetch(`./template/${curDevTpl}.html`).then(b => b.text()).then(code => {
     const doms = render(() => code, document.body)
-    // testPosition(code, doms)
     console.log(doms);
+    // testPosition(code, parse(code))
   })
 
   fetch(`./template/large.html`).then(b => b.text()).then(code => {

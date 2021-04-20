@@ -26,7 +26,6 @@ function encoded(aValue) {
   let encoded = ''
   let digit
   let vlq = toVLQSigned(aValue)
-
   do {
     digit = vlq & VLQ_BASE_MASK
     vlq >>>= VLQ_BASE_SHIFT
@@ -40,18 +39,18 @@ function encoded(aValue) {
 }
 
 function genMappings(source, position) {
-  const { line, column } = position.start
-  const lines = source.split('\n')
+  const { line, column } = position
+  const lines = source.split('\n') // 转换后的源码行数
   const code = (l, c) => encoded(0) + encoded(0) + encoded(l) + encoded(c)
-  return code(line - 2, column) + ';' + lines.map((v) => code(1, 1)).join(';')
+  return code(line, column) + ';' + lines.map((v) => code(1, 1)).join(';')
 }
 
-export function genSourcemap(resource, responseURL, position) {
+export function sourceMappingURL(source, template, position) {
   const content = JSON.stringify({
     version: 3,
-    file: responseURL,
-    sources: [responseURL],
-    mappings: genMappings(resource, position),
+    sources: ['a.js'],
+    sourcesContent: [template],
+    mappings: genMappings(source, position),
   })
   return `\n//@ sourceMappingURL=${toBase64(content)}`
 }
