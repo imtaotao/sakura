@@ -1,6 +1,5 @@
 import { Scope } from './scope.js'
 import { toBase64 } from '../utils.js'
-import { genSourcemap } from './sourcemap.js'
 
 export class Actuator {
   constructor(context, template) {
@@ -11,16 +10,14 @@ export class Actuator {
     this.scopeManager = new Scope(this.context.state)
   }
 
-  sourcemap(code, position) {
-    const { filePath, template } = this
-    return template ? genSourcemap(code, filePath, position) : ''
-  }
-
   createExecutor(code, position) {
     const { name, context, scopeManager } = this
-    let execCode = `with(${name}){${code}}`
-    execCode += this.sourcemap(execCode, position)
-    return new Function('ctx', name, execCode)(context, scopeManager.scope)
+    const scope = scopeManager.scope
+    const args = scopeManager.currentIsBase()
+      ? ''
+      : Object.keys(scope).join(',')
+    const execCode = `with(${name}){return(function(${args}){${code}})(${args})}`
+    return new Function('ctx', name, execCode)(context, scope)
   }
 
   execScript(node) {
@@ -41,7 +38,7 @@ export class Actuator {
       list,
       args: { val, key },
     } = buf
-    let code = `with(${name}) {
+    const code = `with(${name}) {
       const l = ${list};
       if (!l) return;
       if (Array.isArray(l)) {
@@ -54,7 +51,6 @@ export class Actuator {
         }
       }
     }`
-    code += this.sourcemap(code)
 
     scopeManager.create()
     new Function('ctx', name, forCb, code)(

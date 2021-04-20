@@ -4,7 +4,6 @@
     { age: 22 },
     { name: 'ct' },
   ]
-  console.log(121);
   ctx.state.pid = 121
   ctx.click = function(e) {
     console.log(e);
@@ -12,16 +11,12 @@
 </script>
 
 <div>
-  {{ console.log('tao') }}
-  {{ console.log('bd') }}
-  <!-- <div v-for="(k, val) in [1,2]">
+  <div v-for="(k, val) in [1,2]">
     <span
       @click="() => ctx.click(k)"
     >
       {{ k }}
     </span>
-  </div> -->
-  <script>
-    console.log('taotao');
-  </script>
+  </div>
+  {{ pid }}
 </div>

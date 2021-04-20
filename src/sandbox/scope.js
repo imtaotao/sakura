@@ -5,6 +5,10 @@ export class Scope {
     this.namespace = namespace || ''
   }
 
+  currentIsBase() {
+    return this.scope === this.scopeChain[0]
+  }
+
   add(key, val) {
     this.scope[key] = val
   }
