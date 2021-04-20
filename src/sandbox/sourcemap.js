@@ -34,7 +34,6 @@ function encoded(aValue) {
     }
     encoded += base64Encode(digit)
   } while (vlq > 0)
-
   return encoded
 }
 
@@ -45,12 +44,12 @@ function genMappings(source, position) {
   return code(line, column) + ';' + lines.map((v) => code(1, 1)).join(';')
 }
 
-export function sourceMappingURL(source, template, position) {
+export function sourceMappingURL(file, mappings) {
   const content = JSON.stringify({
     version: 3,
-    sources: ['a.js'],
-    sourcesContent: [template],
-    mappings: genMappings(source, position),
+    mappings,
+    sources: [file.name],
+    sourcesContent: [file.content],
   })
   return `\n//@ sourceMappingURL=${toBase64(content)}`
 }
