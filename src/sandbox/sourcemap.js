@@ -22,7 +22,7 @@ function base64Encode(number) {
 }
 
 // encode to VLQ
-function encoded(aValue) {
+export function encoded(aValue) {
   let encoded = ''
   let digit
   let vlq = toVLQSigned(aValue)
@@ -37,12 +37,16 @@ function encoded(aValue) {
   return encoded
 }
 
-function genMappings(source, position) {
-  const { line, column } = position
-  const lines = source.split('\n') // 转换后的源码行数
-  const code = (l, c) => encoded(0) + encoded(0) + encoded(l) + encoded(c)
-  return code(line, column) + ';' + lines.map((v) => code(1, 1)).join(';')
+export function createMapping(cs) {
+  return cs.reduce((t, v) => t + encoded(v), '')
 }
+
+// export function genMappings(source, position) {
+//   const { line, column } = position
+//   const lines = source.split('\n') // 转换后的源码行数
+//   const code = (l, c) => encoded(0) + encoded(0) + encoded(l) + encoded(c)
+//   return code(line, column) + ';' + lines.map((v) => code(1, 1)).join(';')
+// }
 
 export function sourceMappingURL(file, mappings) {
   const content = JSON.stringify({

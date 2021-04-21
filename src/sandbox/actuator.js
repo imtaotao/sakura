@@ -1,50 +1,63 @@
 import { Scope } from './scope.js'
 import { toBase64 } from '../utils.js'
-import { sourceMappingURL } from './sourcemap.js'
+import { createMapping, sourceMappingURL } from './sourcemap.js'
 
 export class Actuator {
   constructor(context, template) {
     this.name = '__SCOPE__'
+    this.runBridge = '__EXEC_BRIDGE__'
     this.context = context
     this.template = template
     this.filePath = toBase64(template)
     this.scopeManager = new Scope(this.context.state)
   }
 
-  sourcemap(code, position) {
-    if (!position) return code
-    return `${code}${sourceMappingURL(code, this.template, position)}`
+  runScript(code, args, isModule) {
+    const node = document.createElement('script')
+    node.text = code
+    node.style.display = 'none'
+    window[this.runBridge] = args
+    document.body.append(node)
+    document.body.removeChild(node)
+    delete window[this.runBridge]
   }
 
-  createExecutor(code, position) {
+  executeCode(code, cb) {
     const { name, context, scopeManager } = this
     const scope = scopeManager.scope
     const args = scopeManager.currentIsBase()
       ? ''
       : Object.keys(scope).join(',')
-    const execCode = this.sourcemap(
+    const execCode = cb(
       `with(${name}){return(function(${args}){${code}})(${args})}`,
-      position,
     )
     return new Function('ctx', name, execCode)(context, scope)
+  }
+
+  // 通过 esm
+  executeCodeByModule() {
+
   }
 
   // 第一行需要用新增的脚本 - <script>
   // 后面的行数不变
   execScript(node) {
     const { children, position } = node
-    const p = {
-      line: position.start.line - 2,
-      column: position.start.column, // '<script>.length'
-    }
-    return this.createExecutor(children[0].buf, p)
+    return this.executeCode(children[0].buf, (code) => {
+      const { line, column } = position.start
+      return code
+    })
   }
 
-  execCommon(node) {
+  execExpression(node) {
     const { buf, position } = node
-    return this.createExecutor(`return(${buf})`, {
-      line: position.start.line - 2,
-      column: position.start.column,
+    return this.executeCode(`return(${buf})`, (code) => {
+      console.log(code);
+      if (!position) return code
+      const { line, column } = position.start
+      const lines = code.split('\n')
+      // let mappings = createMapping([])
+      return code
     })
   }
 
@@ -56,7 +69,7 @@ export class Actuator {
       list,
       args: { val, key },
     } = buf
-    const code = this.sourcemap(
+    const code = 
       `with(${name}) {
         const l = ${list};
         if (!l) return;
@@ -69,12 +82,7 @@ export class Actuator {
             ${forCb}(k, l[k]);
           }
         }
-      }`,
-      {
-        line: position.start.line - 3,
-        column: position.start.column - 3,
-      },
-    )
+      }`
 
     scopeManager.create()
     new Function('ctx', name, forCb, code)(

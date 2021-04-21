@@ -55,7 +55,7 @@ export function execDirectives(node, actuator, createEle) {
         })
         break
       } else {
-        let val = actuator.execCommon(cur)
+        let val = actuator.execExpression(cur)
         if (type === 'if') {
           const canRender = Boolean(val) === true
           if (!canRender) {

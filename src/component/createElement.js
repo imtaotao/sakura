@@ -65,7 +65,7 @@ export function createElement(parent, node, actuator) {
   } else if (type === 'comment') {
     dom = document.createComment(buf)
   } else if (type === 'expression') {
-    const text = toString(actuator.execCommon(node))
+    const text = toString(actuator.execExpression(node))
     dom = document.createTextNode(text)
   } else if (type === 'node') {
     dom = createEleByNode(node, actuator)
