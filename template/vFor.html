@@ -1,8 +1,9 @@
 <script>
   import { add } from '/template/test.js'
+
   context.state.tao = 1
   context.state.data = [
-    { age: 22 },
+    { age: add(10, 12) },
     { name: 'ct' },
   ]
   context.state.pid = 121

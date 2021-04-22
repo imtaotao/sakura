@@ -40,9 +40,9 @@
   }
 
   const curDevTpl = 'vFor'
-  fetch(`./template/${curDevTpl}.html`).then(b => b.text()).then(code => {
-    const doms = render('root', () => code, document.body)
-    console.log(doms);
+  fetch(`./template/${curDevTpl}.html`).then(b => b.text()).then(async code => {
+    const doms = await render('vForTest', () => code, document.body)
+    console.log(doms)
     // testPosition(code, parse(code))
   })
 

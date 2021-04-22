@@ -22,7 +22,7 @@ class Context {
 }
 
 export async function render(name, cm, parent, props) {
-  let res = []
+  let els = []
   const template = cm()
   const context = new Context(props)
   const actuator = new Actuator(name, context, template)
@@ -30,7 +30,7 @@ export async function render(name, cm, parent, props) {
     ? cacheMap.get(template)
     : parse(template)
   for (const n of nodes) {
-    res.push(await createElement(parent, n, actuator))
+    els.push(await createElement(parent, n, actuator))
   }
-  return res
+  return els
 }
