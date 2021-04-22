@@ -28,3 +28,16 @@ export function toString(v) {
 export function toBase64(v) {
   return `data:application/json;base64,${btoa(v)}`
 }
+
+export const AsyncFunction = Object.getPrototypeOf(async function () {})
+  .constructor
+
+export function runEsmScript(code, bridge, context) {
+  const script = document.createElement('script')
+  script.text = code
+  script.type = 'module'
+  script.style.display = 'none'
+  window[bridge] = context
+  document.body.append(script)
+  document.body.removeChild(script)
+}

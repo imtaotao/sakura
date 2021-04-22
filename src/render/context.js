@@ -21,12 +21,16 @@ class Context {
   }
 }
 
-export function render(name, cm, parent, props) {
+export async function render(name, cm, parent, props) {
+  let res = []
   const template = cm()
   const context = new Context(props)
   const actuator = new Actuator(name, context, template)
   const nodes = cacheMap.has(template)
     ? cacheMap.get(template)
     : parse(template)
-  return nodes.map((n) => createElement(parent, n, actuator))
+  for (const n of nodes) {
+    res.push(await createElement(parent, n, actuator))
+  }
+  return res
 }

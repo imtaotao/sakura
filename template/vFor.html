@@ -1,26 +1,31 @@
 <script>
-  ctx.state.tao = 1
-  ctx.state.data = [
+  import { add } from '/template/test.js'
+  context.state.tao = 1
+  context.state.data = [
     { age: 22 },
     { name: 'ct' },
   ]
-  ctx.state.pid = 121
-  console.log(121);
-  ctx.click = function(k, val) {
-    console.log(k, val, ctx.state, a);
+  context.state.pid = 121
+  context.click = function(k, val) {
+    console.log(k, val, context.state);
   }
+  console.log(1);
 </script>
 
 <script>
-  console.log(1, 2, 3);
+  console.log(2);
 </script>
 
 <div>
   <div v-for="(k, val) in data">
     <span
-      @click="console.log(1),() => console.log(k, val)"
+      @click="() => context.click(k, val)"
     >
       {{ k }}
+      {{ console.log(k, val) }}
+      <script>
+        console.log(k, val, 'script');
+      </script>
     </span>
   </div>
 </div>

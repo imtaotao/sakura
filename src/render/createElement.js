@@ -29,14 +29,14 @@ function applyAttributes(dom, attributes) {
 }
 
 function createEleByNode(node, actuator) {
-  return execDirectives(node, actuator, (type, curNode) => {
+  return execDirectives(node, actuator, async (type, curNode) => {
     if (type === 1) {
       return cursorElement(curNode.tagName)
     } else if (type === 2) {
       let dom
       const { tagName, children, attributes } = curNode
       if (tagName === 'script') {
-        actuator.execScript(curNode)
+        await actuator.execScript(curNode)
         dom = cursorElement('<script/>')
       } else {
         // prettier-ignore
@@ -47,7 +47,9 @@ function createEleByNode(node, actuator) {
               ? document.createElementNS(ns, tagName)
               : document.createElement(tagName)
         applyAttributes(dom, attributes)
-        children.forEach((child) => createElement(dom, child, actuator))
+        for (const child of children) {
+          await createElement(dom, child, actuator)
+        }
       }
       return dom
     } else if (type === 3) {
@@ -56,7 +58,7 @@ function createEleByNode(node, actuator) {
   })
 }
 
-export function createElement(parent, node, actuator) {
+export async function createElement(parent, node, actuator) {
   let dom
   const { buf, type } = node
 
@@ -68,7 +70,7 @@ export function createElement(parent, node, actuator) {
     const text = toString(actuator.execExpression(node))
     dom = document.createTextNode(text)
   } else if (type === 'node') {
-    dom = createEleByNode(node, actuator)
+    dom = await createEleByNode(node, actuator)
   }
   if (parent) {
     dom.isFragment ? dom.appendChildInParent(parent) : parent.appendChild(dom)

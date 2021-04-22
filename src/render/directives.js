@@ -30,7 +30,7 @@ const concatDisplayStyle = (attributes, isShow) => {
   }
 }
 
-export function execDirectives(node, actuator, createEle) {
+export async function execDirectives(node, actuator, createEle) {
   node = cloneNode(node)
   let dom, needBreak
   const eventCbs = []
@@ -49,9 +49,10 @@ export function execDirectives(node, actuator, createEle) {
     } else {
       if (type === 'for') {
         dom = new FragmentNode()
-        actuator.execFor(cur, () => {
+        await actuator.execFor(cur, async () => {
           // 递归 v-for
-          dom.appendChild(createEle(3, cloneNode(node, true)))
+          const child = await createEle(3, cloneNode(node, true))
+          dom.appendChild(child)
         })
         break
       } else {
@@ -59,7 +60,7 @@ export function execDirectives(node, actuator, createEle) {
         if (type === 'if') {
           const canRender = Boolean(val) === true
           if (!canRender) {
-            dom = createEle(1, node)
+            dom = await createEle(1, node)
             needBreak = true
           }
         } else if (type === 'bind') {
@@ -80,7 +81,7 @@ export function execDirectives(node, actuator, createEle) {
     }
   }
   if (!dom) {
-    dom = createEle(2, node)
+    dom = await createEle(2, node)
   }
   eventCbs.forEach((fn) => fn(dom))
   // TODO: 自定义指令

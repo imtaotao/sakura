@@ -9,14 +9,14 @@ const directivesPriority = [
   'transition',
 ]
 const errorReg = /[\s,\(\)]/
-const customIdx = directivesPriority.length
 const parsingDirectives = Object.create(null)
+const defaultIdx = { i: directivesPriority.length }
 directivesPriority.forEach((k, i) => (parsingDirectives[k] = { i }))
 
 export function sortDirectives(ds) {
   return ds.sort((a, b) => {
-    const aIdx = parsingDirectives[a.type] || { i: customIdx }
-    const bIdx = parsingDirectives[b.type] || { i: customIdx }
+    const aIdx = parsingDirectives[a.type] || defaultIdx
+    const bIdx = parsingDirectives[b.type] || defaultIdx
     return aIdx.i - bIdx.i
   })
 }

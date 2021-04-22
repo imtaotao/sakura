@@ -2,8 +2,8 @@ import { tokenizer } from './tokenizer.js'
 import {
   posMsg,
   parseFor,
-  isCustomDirective,
   sortDirectives,
+  isCustomDirective,
 } from './directives.js'
 
 // 暂时只做只有一个字符的别名
