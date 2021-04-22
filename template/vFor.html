@@ -18,7 +18,7 @@
 <div>
   <div v-for="(k, val) in data">
     <span
-      @click="() => ctx.click(k, val)"
+      @click="console.log(1),() => console.log(k, val)"
     >
       {{ k }}
     </span>

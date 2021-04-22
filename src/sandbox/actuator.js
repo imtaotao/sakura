@@ -1,15 +1,17 @@
 import { Scope } from './scope.js'
-import { toBase64 } from '../utils.js'
 import { createMapping, sourceMappingURL } from './sourcemap.js'
 
 export class Actuator {
-  constructor(context, template) {
+  constructor(name, context, template) {
     this.name = '__SCOPE__'
     this.runBridge = '__EXEC_BRIDGE__'
     this.context = context
     this.template = template
-    this.filePath = toBase64(template)
     this.scopeManager = new Scope(this.context.state)
+    this.file = {
+      content: template,
+      name: name || 'component',
+    }
   }
 
   runScript(code, args, isModule) {
@@ -35,9 +37,7 @@ export class Actuator {
   }
 
   // 通过 esm
-  executeCodeByModule() {
-
-  }
+  executeCodeByModule() {}
 
   // 第一行需要用新增的脚本 - <script>
   // 后面的行数不变
@@ -52,12 +52,14 @@ export class Actuator {
   execExpression(node) {
     const { buf, position } = node
     return this.executeCode(`return(${buf})`, (code) => {
-      console.log(code);
       if (!position) return code
-      const { line, column } = position.start
       const lines = code.split('\n')
-      // let mappings = createMapping([])
-      return code
+      const { line, column } = position.start
+      const mappings = lines.reduce(
+        (t) => `${t}${createMapping([0, 0, 1, 1])}`,
+        createMapping([0, 0, line - 1, column - 1]),
+      )
+      return `${code}${sourceMappingURL(this.file, mappings)}`
     })
   }
 
@@ -69,8 +71,8 @@ export class Actuator {
       list,
       args: { val, key },
     } = buf
-    const code = 
-      `with(${name}) {
+    let code = `
+      with(${name}) {
         const l = ${list};
         if (!l) return;
         if (Array.isArray(l)) {
@@ -82,7 +84,18 @@ export class Actuator {
             ${forCb}(k, l[k]);
           }
         }
-      }`
+      }
+    `
+
+    if (position) {
+      const lines = code.split('\n')
+      const { line, column } = position.start
+      const mappings = lines.reduce(
+        (t) => `${t}${createMapping([0, 0, 0, 0])}`,
+        createMapping([0, 0, line, column]),
+      )
+      code = `${code}${sourceMappingURL(this.file, mappings)}`
+    }
 
     scopeManager.create()
     new Function('ctx', name, forCb, code)(

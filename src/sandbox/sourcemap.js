@@ -37,10 +37,6 @@ export function encoded(aValue) {
   return encoded
 }
 
-export function createMapping(cs) {
-  return cs.reduce((t, v) => t + encoded(v), '')
-}
-
 // export function genMappings(source, position) {
 //   const { line, column } = position
 //   const lines = source.split('\n') // 转换后的源码行数
@@ -56,4 +52,12 @@ export function sourceMappingURL(file, mappings) {
     sourcesContent: [file.content],
   })
   return `\n//@ sourceMappingURL=${toBase64(content)}`
+}
+
+// 1: 表示这个位置在（转换后的代码的）的第几列
+// 2. 表示这个位置属于sources属性中的哪一个文件
+// 3. 表示这个位置属于转换前代码的第几行
+// 4. 表示这个位置属于转换前代码的第几列
+export function createMapping(cs) {
+  return cs.reduce((t, v) => t + encoded(v), '') + ';'
 }
