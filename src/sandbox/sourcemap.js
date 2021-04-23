@@ -1,5 +1,3 @@
-import { toBase64 } from '../utils.js'
-
 // https://github.com/mozilla/source-map/blob/master/lib/base64-vlq.js
 // http://www.ruanyifeng.com/blog/2013/01/javascript_source_map.html
 const VLQ_BASE_SHIFT = 5
@@ -12,6 +10,10 @@ const intToCharMap = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012345
 
 function toVLQSigned(aValue) {
   return aValue < 0 ? (-aValue << 1) + 1 : (aValue << 1) + 0
+}
+
+function toBase64(v) {
+  return `data:application/json;base64,${btoa(unescape(encodeURIComponent(v)))}`
 }
 
 function base64Encode(number) {
@@ -37,12 +39,13 @@ export function encoded(aValue) {
   return encoded
 }
 
-// export function genMappings(source, position) {
-//   const { line, column } = position
-//   const lines = source.split('\n') // 转换后的源码行数
-//   const code = (l, c) => encoded(0) + encoded(0) + encoded(l) + encoded(c)
-//   return code(line, column) + ';' + lines.map((v) => code(1, 1)).join(';')
-// }
+// 1: 表示这个位置在（转换后的代码的）的第几列
+// 2. 表示这个位置属于sources属性中的哪一个文件
+// 3. 表示这个位置属于转换前代码的第几行
+// 4. 表示这个位置属于转换前代码的第几列
+export function createMapping(cs) {
+  return cs.reduce((t, v) => t + encoded(v), '') + ';'
+}
 
 export function sourceMappingURL(file, mappings) {
   const content = JSON.stringify({
@@ -52,12 +55,4 @@ export function sourceMappingURL(file, mappings) {
     sourcesContent: [file.content],
   })
   return `\n//@ sourceMappingURL=${toBase64(content)}`
-}
-
-// 1: 表示这个位置在（转换后的代码的）的第几列
-// 2. 表示这个位置属于sources属性中的哪一个文件
-// 3. 表示这个位置属于转换前代码的第几行
-// 4. 表示这个位置属于转换前代码的第几列
-export function createMapping(cs) {
-  return cs.reduce((t, v) => t + encoded(v), '') + ';'
 }
