@@ -41,7 +41,7 @@
 
   const curDevTpl = 'vFor'
   fetch(`./template/${curDevTpl}.html`).then(b => b.text()).then(async code => {
-    const doms = await render('vForTest', () => code, document.body)
+    const doms = await render(`${curDevTpl}.vue`, () => code, document.body)
     console.log(doms)
     // testPosition(code, parse(code))
   })

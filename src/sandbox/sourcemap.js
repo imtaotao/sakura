@@ -54,5 +54,5 @@ export function sourceMappingURL(file, mappings) {
     sources: [file.name],
     sourcesContent: [file.content],
   })
-  return `\n//@ sourceMappingURL=${toBase64(content)}`
+  return `\n//# sourceMappingURL=${toBase64(content)}`
 }

@@ -35,5 +35,5 @@ export function runEsmScript(code, bridge, context) {
   script.style.display = 'none'
   window[bridge] = context
   document.body.append(script)
-  document.body.removeChild(script)
+  // document.body.removeChild(script)
 }

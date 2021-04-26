@@ -1,7 +1,6 @@
 <script>
   // 默认支持 esm，如果有第三方库的网络通信消耗，会阻塞页面的渲染，😢
   import { add } from '/template/test.js'
-
   context.state.tao = 1
   context.state.data = [
     { age: add(10, 12) },
@@ -11,17 +10,12 @@
   context.click = function(k, val) {
     console.log(k, val, context.state);
   }
-  console.log(1);
-</script>
-
-<script>
-  console.log(2);
 </script>
 
 <div>
   <div v-for="(k, val) in data">
     <span
-      @click="() => context.click(k, val)"
+      @click="console.log(k, 1),() => context.click(k, val)"
     >
       {{ k }}
       {{ console.log(k, val) }}

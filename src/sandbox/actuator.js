@@ -20,7 +20,7 @@ export class Actuator {
 
   execScript(node) {
     const { children, position } = node
-    const { file, context, scopeManager } = this
+    const { file, context, resolve, scopeManager } = this
     const scope = scopeManager.scope
     const bridge = `${this.bridge}_${scriptCount++}`
     const args = scopeManager.currentIsBase()
@@ -32,9 +32,10 @@ export class Actuator {
             '',
           )
     let code =
-      `let context = window['${bridge}'].context;${args}\n` +
-      children[0].buf +
-      `\nwindow['${bridge}'].resolve();delete window['${bridge}'];`
+      `window['${bridge}'].resolve();` +
+      `let context = window['${bridge}'].context;${args}` +
+      `delete window['${bridge}'];` +
+      children[0].buf
 
     if (position) {
       let sourcemapURL = mapCache[code]
@@ -43,7 +44,7 @@ export class Actuator {
         const { line, column } = position.start
         const mappings = lines.reduce(
           (t) => `${t}${createMapping([0, 0, 1, 1])}`,
-          createMapping([0, 0, line - 1, column + 7]),
+          createMapping([0, 0, line, column]),
         )
         sourcemapURL = sourceMappingURL(file, mappings)
         mapCache[code] = sourcemapURL
