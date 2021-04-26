@@ -51,7 +51,7 @@ export function sourceMappingURL(file, mappings) {
   const content = JSON.stringify({
     version: 3,
     mappings,
-    sources: [file.name],
+    sources: ['a.js'],
     sourcesContent: [file.content],
   })
   return `\n//# sourceMappingURL=${toBase64(content)}`

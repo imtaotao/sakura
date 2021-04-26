@@ -4,37 +4,37 @@ import { createMapping, sourceMappingURL } from './sourcemap.js'
 
 let scriptCount = 0
 const mapCache = {}
+const scopeName = '__SCOPE__'
+const bridge = '__EXEC_BRIDGE__'
 
 export class Actuator {
-  constructor(name, context, template) {
-    this.name = '__SCOPE__'
-    this.bridge = '__EXEC_BRIDGE__'
+  constructor(namespace, context, template) {
     this.context = context
     this.template = template
     this.scopeManager = new Scope(this.context.state)
     this.file = {
       content: template,
-      name: name || 'component',
+      name: namespace || 'component',
     }
   }
 
   execScript(node) {
     const { children, position } = node
-    const { file, context, resolve, scopeManager } = this
+    const { file, context, scopeManager } = this
     const scope = scopeManager.scope
-    const bridge = `${this.bridge}_${scriptCount++}`
+    const curBridge = `${bridge}_${scriptCount++}`
     const args = scopeManager.currentIsBase()
       ? ''
       : Object.keys(scope)
           .filter((v) => v !== 'context')
           .reduce(
-            (t, v) => `${t}let ${v} = window['${bridge}'].scope.${v};`,
+            (t, v) => `${t}let ${v} = window['${curBridge}'].scope.${v};`,
             '',
           )
     let code =
-      `window['${bridge}'].resolve();` +
-      `let context = window['${bridge}'].context;${args}` +
-      `delete window['${bridge}'];` +
+      `window['${curBridge}'].resolve();` +
+      `let context = window['${curBridge}'].context;${args}` +
+      `delete window['${curBridge}'];` +
       children[0].buf
 
     if (position) {
@@ -53,7 +53,7 @@ export class Actuator {
     }
 
     return new Promise((resolve) => {
-      runEsmScript(code, bridge, {
+      runEsmScript(code, curBridge, {
         scope,
         context,
         resolve,
@@ -63,13 +63,13 @@ export class Actuator {
 
   execExpression(node) {
     const { buf, position } = node
-    const { name, file, context, scopeManager } = this
+    const { file, context, scopeManager } = this
     const scope = scopeManager.scope
     const args = scopeManager.currentIsBase()
       ? ''
       : Object.keys(scope).join(',')
     const codeInfo = [
-      `with(${name}){return(function(${args}){return(${buf})`,
+      `with(${scopeName}){return(function(${args}){return(${buf})`,
       `\n})(${args})}`,
     ]
     if (position) {
@@ -87,11 +87,11 @@ export class Actuator {
       }
       codeInfo[0] = `${chars}${sourcemapURL}`
     }
-    return new Function('context', name, codeInfo.join(''))(context, scope)
+    return new Function('context', scopeName, codeInfo.join(''))(context, scope)
   }
 
   async execFor(node, cb) {
-    const { name, file, context, scopeManager } = this
+    const { file, context, scopeManager } = this
     const { buf, position } = node
     const forCb = '__vForCallback__'
     const {
@@ -99,7 +99,7 @@ export class Actuator {
       args: { val, key },
     } = buf
     let code = `
-      with(${name}) {
+      with(${scopeName}) {
         const l = ${list};
         if (!l) return;
         if (Array.isArray(l)) {
@@ -130,7 +130,7 @@ export class Actuator {
     }
 
     scopeManager.create()
-    await new AsyncFunction('context', name, forCb, code)(
+    await new AsyncFunction('context', scopeName, forCb, code)(
       context,
       scopeManager.scope,
       (curKey, curVal) => {
