@@ -3,9 +3,9 @@ import { runEsmScript, AsyncFunction } from '../utils.js'
 import { createMapping, sourceMappingURL } from './sourcemap.js'
 
 let scriptCount = 0
-const mapCache = {}
 const scopeName = '__SCOPE__'
 const bridge = '__EXEC_BRIDGE__'
+const mapCache = Object.create(null)
 
 export class Actuator {
   constructor(namespace, context, template) {

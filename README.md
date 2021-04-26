@@ -9,3 +9,31 @@ vue 前期，小项目中的开发还是很爽的，原因在于响应式与好�
 3. 原生，运行时的语法糖支持
 
 这个项目中，重要的是快速开发中小型项目，尤其是小项目。重点在开发体验上，性能等方面的考虑是排在后面的。我希望能够极速的启动，在原生的 html 上扩展一些 vue 的模板语法糖。用数据驱动视图开发。
+
+
+```html
+<!-- 默认支持 esm -->
+<script>
+  import { add } from '/template/test.js'
+  context.state.tao = 1
+  context.state.data = [
+    { name: 'ct' },
+    { age: add(10, 12) },
+  ]
+  context.state.pid = 121
+  context.click = function(k, val) {
+    console.log(k, val, context.state);
+  }
+</script>
+
+<div>
+  <div v-for="(k, val) in data">
+    <span @click="() => context.click(k, val)">
+      {{ k }}
+      <script>
+        console.log(k, val, 'script');
+      </script>
+    </span>
+  </div>
+</div>
+```
