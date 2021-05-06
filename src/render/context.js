@@ -1,5 +1,5 @@
+import { observe } from '../proxy/observer.js'
 import { Actuator } from '../sandbox/actuator.js'
-import { observe } from '../proxy/observeData.js'
 import { createElement } from './createElement.js'
 import { parse } from '../parser/template/parser.js'
 
@@ -10,7 +10,7 @@ class Context {
   constructor(props) {
     this.fns = {}
     this.cms = {}
-    this.state = observe({})
+    this.state = {}
     this.props = props || {}
   }
 
