@@ -1,5 +1,7 @@
-let activeEffect = null
+export const activeEffect = {
+  value: null
+}
 
 export function watchEffect(effect) {
-  activeEffect = effect()
+  activeEffect.value = effect()
 }
