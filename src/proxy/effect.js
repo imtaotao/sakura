@@ -1,5 +1,5 @@
 export const activeEffect = {
-  value: null
+  value: null,
 }
 
 export function watchEffect(effect) {

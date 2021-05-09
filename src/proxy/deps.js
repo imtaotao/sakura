@@ -24,8 +24,15 @@ export function track(target, type, p) {
     targetMap.set(target, deps)
   }
   if (!deps.has(effect)) {
-    deps.add(effect)
+    deps.add({
+      p,
+      type,
+      target,
+      effect,
+    })
   }
 }
 
-export function trigger(target, type, p, value, oldValue) {}
+export function trigger(target, type, p, value, oldValue) {
+  console.log(arguments)
+}

@@ -39,8 +39,8 @@ export function encoded(aValue) {
   return encoded
 }
 
-// 1: 表示这个位置在（转换后的代码的）的第几列
-// 2. 表示这个位置属于sources属性中的哪一个文件
+// 1. 表示这个位置在（转换后的代码的）的第几列
+// 2. 表示这个位置属于 sources 属性中的哪一个文件
 // 3. 表示这个位置属于转换前代码的第几行
 // 4. 表示这个位置属于转换前代码的第几列
 export function createMapping(cs) {

@@ -25,6 +25,10 @@ export function toString(v) {
   return v && typeof v === 'object' ? JSON.stringify(v) : String(v)
 }
 
+export function isObject(v) {
+  return v !== null && typeof v === 'object'
+}
+
 export const AsyncFunction = Object.getPrototypeOf(async function () {})
   .constructor
 
@@ -35,5 +39,5 @@ export function runEsmScript(code, bridge, context) {
   script.style.display = 'none'
   window[bridge] = context
   document.body.append(script)
-  // document.body.removeChild(script)
+  document.body.removeChild(script)
 }
